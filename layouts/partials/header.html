@@ -1,0 +1,77 @@
+<header
+  class="sticky top-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white text-sm py-3"
+>
+  <!-- add  border-b when down -->
+  <div class="max-w-[85rem] w-full mx-auto px-4 md:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between" x-data="{ open: false }">
+      <div class="flex items-center">
+        <a x-cloak href="{{ .Site.BaseURL }}" class="flex items-center">
+          {{ with .Site.Params.logo }}
+            {{ if .primary }}
+              <img
+                src="{{ .primary }}"
+                alt="/"
+                class="h-8 w-auto max-w-[200px] dark:hidden"
+                style="visibility: hidden"
+                onload="this.style.visibility='visible'"
+              />
+            {{ end }}
+            {{ if .secondary }}
+              <img
+                  src="{{ .secondary }}"
+                  alt="/{{ .Site.Title }}"
+                  class="h-8 w-auto max-w-[200px] hidden dark:block"
+                  style="visibility: hidden"
+                  onload="this.style.visibility='visible'"
+                />
+            {{ end }}
+          {{ end }}
+        </a>
+      </div>
+
+      <div class="flex items-center gap-x-2 lg:order-2">
+        {{ with .Site.Params.header.action }}
+        <a
+          href="{{ .url }}"
+          target="{{ .target | default "_self" }}"
+          class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90"
+        >
+          {{ .name }}
+        </a>
+        {{ end }}
+        
+        <button
+          type="button"
+          class="lg:hidden p-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 hover:bg-gray-100"
+          @click="open = !open"
+          aria-expanded="false"
+          :aria-expanded="open.toString()"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+      <nav
+        class="hidden absolute top-full left-0 right-0 bg-white border-b lg:static lg:block lg:border-none mt-3 lg:mt-0 w-full lg:w-auto"
+        :class="{ 'hidden': !open }"
+        >
+        <ul
+          class="flex flex-col mt-4 font-semibold text-secondary lg:flex-row lg:space-x-8 lg:mt-0"
+        >
+          {{ range .Site.Menus.main }}
+          <li>
+            <a
+              href="{{ .URL }}"
+              {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+              class="block py-2 pr-4 pl-3 hover:text-primary lg:p-0 dark:text-gray-300 dark:hover:text-white"
+              @click="open = false"
+              >{{ .Name }}</a
+            >
+          </li>
+          {{ end }}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

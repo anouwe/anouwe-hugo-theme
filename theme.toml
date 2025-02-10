@@ -1,0 +1,19 @@
+name = 'anouwe'
+license = 'Apache-2.0'
+licenselink = 'https://github.com/anouwe/anouwe-hugo-theme/LICENSE'
+description = 'Hugo Theme from anouwe'
+
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/anouwe/anouwe-hugo-theme'
+
+# If you have a running demo of the theme
+#demosite = 'https://owner.github.io/repo'
+
+# Taxonomy terms
+tags = ['company', 'responsive']
+features = ['responsive']
+
+# If the theme has a single author
+[author]
+  name = 'Sylvain Braine'
+  homepage = 'https://www.anouwe.ch'

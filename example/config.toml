@@ -1,0 +1,130 @@
+
+baseURL = 'https://www.anouwe.ch/'
+languageCode = 'fr-FR'
+title = 'anouwé'
+#theme = 'anouwe'
+
+archetypeDir = "archetypes" 
+contentDir = "content"
+
+[build]
+  [build.postCSS]
+    enable = true
+    config = "postcss.config.js"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[menu]
+  # Main menu
+  #[[menu.main]]
+  #  name = "Accueil"
+  #  url = "/"
+  #  weight = 1
+  [[menu.main]]
+    name = "Nos services"
+    url = "/#services"
+    weight = 2
+  [[menu.main]]
+    name = "Secteurs d'impact"
+    url = "/#sectors"
+    weight = 3
+  [[menu.main]]
+    name = "Nos formules"
+    url = "/#pricing"
+    weight = 4
+  [[menu.main]]
+    name = "Témoignages"
+    url = "/#testimonials"
+    weight = 5
+  [[menu.main]]
+    name = "↗ Solutions digitales"
+    url = "https://www.bacworks.ch"
+    params = {target = "_blank"}
+    weight = 6
+  [[menu.main]]
+    name = "Contact"
+    url = "/#contact"
+    weight = 7
+  # Footer menu
+  [[menu.footer]]
+    name = "Informations"
+    weight = 10
+  [[menu.footer]]
+    name = "Contact"
+    weight = 20
+  [[menu.footer]]
+    parent = "Contact"
+    name = "Nous contacter"
+    url = "https://anouwe.notion.site/18e2dd64184f8096965cd1986079dc6c"
+    params = {target = "_blank"}
+    weight = 1
+  [[menu.footer]]
+    parent = "Contact"
+    name = "Prendre rendez-vous"
+    url = "https://app.simplymeet.me/anouwe/30min"
+    params = {target = "_blank"}
+    weight = 2
+  [[menu.footer]]
+    parent = "Contact"
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/company/anouwe"
+    params = {target = "_blank"}
+    weight = 3
+
+[outputs]
+  home = ['html', 'rss']
+  page = ['html']
+  rss = ['rss']
+  section = ['html', 'rss']
+  taxonomy = ['html', 'rss']
+  term = ['html', 'rss']
+
+[outputFormats]
+  [outputFormats.robots]
+    mediaType = "text/plain"
+    baseName = "robots"
+    isPlainText = true
+
+[params]
+  company = "bacworks sàrl"
+  title = "anouwé"
+  tagline = "bâtir un avenir au-delà des murs"
+  # Formatting
+  primaryColor = "#007B79"
+  secondaryColor = "#113946"
+  mainFont = "Poppins"
+  # Open Graph default
+  description = "conseil stratégique et opérationnel pour PME de la construction"
+  images = ["/images/anouwe-social.png"]
+  [params.social]
+    linkedin = "anouwe"
+  [params.logo]
+    primary = "/images/anouwe-logo-couleur.svg"
+    secondary = "/images/anouwe-logo-couleur-blanc.svg"
+  [params.copyright]
+    startYear = 2024
+    branding = "anouwé est une marque de bacworks sàrl."
+  # Header
+  [params.header.action]
+    name = "Prendre RDV"
+    url = "https://app.simplymeet.me/anouwe/30min"
+    target = "_blank"
+  # Footer
+  [params.footer.ecoindex]
+    active = true
+
+[permalinks]
+  profiles = "/profiles/:filename"
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[[sitemap.excludes]]
+  path = "profiles"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"

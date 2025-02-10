@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Nos profils</h1>
+    
+    <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{ range .Pages }}
+        <a href="{{ .RelPermalink }}" class="block group">
+            <div class="bg-white rounded-lg shadow-lg p-6 transition-all duration-200 hover:shadow-xl">
+                <div class="flex justify-center mb-4">
+                    {{ with .Resources.GetMatch "photo.jpg" }}
+                    <img src="{{ .RelPermalink }}" class="h-32 w-32 rounded-full object-cover" alt="{{ $.Title }}"/>
+                    {{ end }}
+                </div>
+                
+                <div class="text-center">
+                    <h2 class="text-xl font-semibold text-gray-800 group-hover:text-primary">{{ .Title }}</h2>
+                    <p class="text-gray-600">{{ .Params.role }}</p>
+                    <p class="text-primary mt-1">{{ .Params.company }}</p>
+                </div>
+            </div>
+        </a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

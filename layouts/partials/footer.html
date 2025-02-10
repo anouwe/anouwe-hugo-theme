@@ -1,0 +1,96 @@
+<footer :class="cookieBannerVisible ? 'pb-44 sm:pb-12' : 'pb-0'" class="bg-secondary text-white mt-auto w-full" role="contentinfo">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:justify-between">
+      <div class="mb-8 lg:mb-0">
+        <div class="flex flex-col sm:flex-row items-center sm:items-end justify-center sm:justify-start">
+          <a x-cloak href="{{ .Site.BaseURL }}" aria-label="Page d'accueil" class="shrink-0">
+            {{ with .Site.Params.logo }}
+              {{ if .secondary }}
+                <img
+                  src="{{ .secondary }}"
+                  alt="/{{ .Site.Title }}"
+                  class="h-8 w-auto max-w-[200px] dark:hidden"
+                />
+              {{ end }}
+              {{ if .primary }}
+                <img
+                  src="{{ .primary }}"
+                  alt="/{{ .Site.Title }}"
+                  class="h-8 w-auto max-w-[200px] hidden dark:block"
+                />
+              {{ end }}
+            {{ end }}
+          </a>
+          {{ with .Site.Params.tagline }}
+          <span class="text-sm text-gray-400 dark:text-gray-500 whitespace-nowrap sm:ml-2 mt-1 sm:mt-0">
+            {{ . }}</span>
+            {{ end }}
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 ml-0 sm:ml-10 lg:ml-0 lg:mt-2 sm:w-fit">
+        {{ range .Site.Menus.footer }}
+        <div>
+            <h2 class="mb-4 font-semibold uppercase text-white dark:text-gray-900 text-center sm:text-left">{{ .Name }}</h2>
+            {{ if .HasChildren }}
+            <ul class="text-gray-300 dark:text-gray-600 text-center sm:text-left">
+              {{ range .Children }}
+                <li class="mb-4">
+                  <a
+                  {{ if not .Params.click }}href="{{ .URL }}"{{ end }}
+                    {{ if .Params.click }}@click="{{ .Params.click }}"{{ end }}
+                    {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+                    class="hover:text-white dark:hover:text-gray-900 cursor-pointer"
+                    aria-label="{{ .Name }}"
+                    >{{ .Name }}</a
+                  >
+                </li>
+              {{ end }}
+          </ul>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    <hr class="my-6 border-gray-700 sm:mx-auto dark:border-gray-200 lg:my-8" />
+    <div class="text-center sm:flex items-center sm:justify-between">
+      <span class="text-sm text-gray-400 dark:text-gray-500 flex flex-wrap gap-1 justify-center sm:justify-start">
+        © {{ with .Site.Params.copyright.startYear }}{{ . }}-{{ end }}{{ now.Format "2006" }} {{ .Site.Params.Company }}. Tous droits
+        réservés.{{ with .Site.Params.copyright.branding }} <span class="basis-full sm:basis-auto">{{ . }}.</span>{{ end }}
+      </span>
+
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 items-center justify-center sm:justify-start mt-4 sm:mt-0">
+        {{ with .Site.Params.social }}
+          <div class="flex justify-center">
+            {{ if .linkedin}}
+            <a
+              href="https://www.linkedin.com/company/{{ .linkedin }}"
+              class="inline-flex gap-2 text-gray-400 hover:text-white dark:hover:text-gray-900"
+              aria-label="Linkedin {{ .Site.Title }}"
+              target="_blank"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
+              </svg>
+            </a>
+            {{ end }}
+          </div>
+        {{ end }}
+        {{ if .Site.Params.footer.ecoindex.active }}
+        <div class="flex justify-center sm:-mt-2 h-8">
+          <div id="ecoindex-badge" data-theme="dark"></div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</footer>
+{{ if .Site.Params.footer.ecoindex.active }}
+<script src="https://cdn.jsdelivr.net/gh/cnumr/ecoindex_badge@3/assets/js/ecoindex-badge.js" defer></script>
+{{ end}}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    {{ partial "head/analytics.html" . }}
+    {{ partial "head/metadata.html" . }}
+    <title>{{ .Site.Title }} / {{ .Title }}</title>
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/schema.html" . }}
+    {{ partial "head/favicons.html" . }}
+    {{ $main := resources.Get "css/main.css" }}
+    {{ $css := slice $main | resources.Concat "css/bundle.css" | css.PostCSS }}
+    {{ if hugo.IsProduction }}
+      {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
+    {{ with .OutputFormats.Get "rss" -}}
+      {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    {{ $js := resources.Get "js/main.js" }}
+    <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</head>
+<body {{ if .Site.Params.googleAnalytics }} x-data="{ 
+  cookieBannerVisible: (() => {
+      const stored = JSON.parse(localStorage.getItem('cookies-settings') || '{}');
+      if (stored.expiryDate && new Date(stored.expiryDate) < new Date()) {
+          localStorage.removeItem('cookies-settings');
+          localStorage.removeItem('cookies-banner');
+          return true;
+      }
+      return !localStorage.getItem('cookies-banner');
+  })()
+}"
+x-init="window.addEventListener('cookie-preferences-updated', () => cookieBannerVisible = false)"
+ {{ end }} class="min-h-screen flex flex-col">
+    {{ partial "header" . }}
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 w-full">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer" . }}
+    {{ if .Site.Params.googleAnalytics }}{{ partial "cookie-banner.html" . }}{{ end }}
+</body>
+</html>

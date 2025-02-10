@@ -1,0 +1,44 @@
+{
+  "name": "anouwe-hugo-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "anouwe hugo theme",
+  "scripts": {
+    "build:parcel": "parcel build src/theme.js",
+    "build:hugo": "hugo --gc --minify",
+    "build": "pnpm run build:parcel && npm run build:hugo",
+    "serve:parcel": "parcel watch src/theme.js",
+    "serve:postcss": "postcss assets/css/theme.css -o public/css/theme.css --watch",
+    "serve:hugo": "hugo server --disableFastRender",
+    "watch": "parcel watch src/index.js",
+    "dev": "pnpm run serve:parcel & pnpm run serve:postcss & pnpm run serve:hugo"
+  },
+  "targets": {
+    "js": {
+      "distDir": "assets/js",
+      "isLibrary": false,
+      "publicUrl": "/",
+      "sourceMap": false,
+      "engines": {
+        "browsers": "> 0.5%, not dead"
+      }
+    }
+  },
+  "keywords": [],
+  "author": "bacworks",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.20",
+    "parcel": "^2.13.3",
+    "postcss": "^8.5.1",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "tailwindcss": "3.4.17"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.8",
+    "flag-icons": "^7.3.2",
+    "flowbite": "^3.0.0"
+  }
+}

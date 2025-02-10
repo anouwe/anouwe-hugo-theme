@@ -1,0 +1,8 @@
+{{ define "main" }}
+<section>
+  <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-8">{{ .Title }}</h1>
+  <div class="prose prose-sm md:prose-base lg:prose-lg prose-headings:text-secondary-400 prose-p:text-justify dark:prose-invert max-w-none">
+    {{ .Content }}
+  </div>
+</section>
+{{ end }}

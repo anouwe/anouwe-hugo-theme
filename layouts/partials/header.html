@@ -57,14 +57,14 @@
         :class="{ 'hidden': !open }"
         >
         <ul
-          class="flex flex-col mt-4 font-semibold text-secondary lg:flex-row lg:space-x-8 lg:mt-0"
+          class="flex flex-col mt-4 font-semibold text-secondary lg:flex-row lg:space-x-8 lg:mt-2"
         >
           {{ range .Site.Menus.main }}
           <li>
             <a
               href="{{ .URL }}"
               {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
-              class="block py-2 pr-4 pl-3 hover:text-primary lg:p-0 dark:text-gray-300 dark:hover:text-white"
+              class="block font-semibold py-2 pr-4 pl-3 hover:text-primary lg:p-0 dark:text-gray-300 dark:hover:text-white"
               @click="open = false"
               >{{ .Name }}</a
             >

@@ -1,3 +1,5 @@
 {{ define "main" }}
-  {{ .Content }}
+  {{ range .Params.sections }}
+  {{ partial . $ }}
+  {{ end }}
 {{ end }}

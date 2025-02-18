@@ -55,5 +55,18 @@
     }
 }
 
+@media (max-width: 640px) {
+  #hero {
+      height: calc(100vh - 98px);
+      overflow: visible;
+      position: relative;
+  }
+  .next-section {
+    flex-grow: 0; /* Chaque section suivante prend juste l'espace qu'elle nécessite */
+    min-height: 0; /* Pas de hauteur minimale fixe, s'ajuste dynamiquement */
+    padding-top: 2rem; /* Pour créer un espacement entre les sections si nécessaire */
+}
+}
+
 /* AlpineJS */
 [x-cloak] { display: none !important; }

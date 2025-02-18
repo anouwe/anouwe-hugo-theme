@@ -1,5 +1,5 @@
 {{ with .Params.contact }}
-<section id="contact" class="bg-white dark:bg-gray-900" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
+<section id="contact" class="bg-white dark:bg-gray-900 next-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
   @set-action.window="action = $event.detail.action; focusObject()">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
   

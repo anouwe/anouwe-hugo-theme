@@ -1,5 +1,5 @@
 {{ with .Params.services }}
-<section id="services" class="bg-white dark:bg-gray-900">
+<section id="services" class="bg-white dark:bg-gray-900 min-h-1 next-section">
   <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
 
     <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
@@ -9,10 +9,11 @@
     
       <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
           {{ range .list }}
-          <div>
+          <div class="flex flex-col">
               <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
                   {{ partial (printf "svg/%s.svg" .icon) (dict "class" "w-5 h-5 lg:w-6 lg:h-6") }}
               </div>
+              <div class="flex flex-col flex-grow">
               <h3 class="mb-2 text-lg font-bold dark:text-white">{{ .name }}</h3>
               <p class="text-gray-500 dark:text-gray-400">{{ .description }}</p>
               {{ with .features }}
@@ -27,8 +28,9 @@
               </li>
               {{ end }}
               {{ end }}
-          </ul>
-          {{ end }}
+              </ul>
+             {{ end }}
+            </div>
           </div>
           {{ end }}
       </div>

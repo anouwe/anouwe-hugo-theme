@@ -1,0 +1,22 @@
+<a x-cloak href="{{ .Site.BaseURL }}" aria-label="Page d'accueil" class="shrink-0">
+  {{ with .Site.Params.footer.logo }}
+    {{ if .primary }}
+    <img
+      src="{{ .primary }}"
+      alt="{{ .Site.Title }}"
+      class="h-8 w-auto max-w-[200px] dark:hidden"
+    />
+    {{ end }}
+    {{ if .secondary }}
+      <img
+        src="{{ .secondary }}"
+        alt="{{ .Site.Title }}"
+        class="h-8 w-auto max-w-[200px] hidden dark:block"
+      />
+    {{ end }}
+  {{ end }}
+</a>
+{{ with .Site.Params.tagline }}
+<span class="text-sm text-gray-400 dark:text-gray-500 whitespace-nowrap sm:ml-2 mt-1 sm:mt-0">
+  {{ . }}</span>
+{{ end }}

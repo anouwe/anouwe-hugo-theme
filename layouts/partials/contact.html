@@ -1,5 +1,6 @@
 {{ with .Params.contact }}
-<section id="contact" class="bg-white dark:bg-gray-900">
+<section id="contact" class="bg-white dark:bg-gray-900" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
+  @set-action.window="action = $event.detail.action; focusObject()">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
   
     <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
@@ -22,7 +23,6 @@
         required
       />
     </div>
-
     <div class="mb-5 sm:mb-8">
       <label for="email" class="block mb-2 dark:text-white">Email</label>
       <input
@@ -32,6 +32,20 @@
         placeholder="nom@example.ch"
         required
       />
+    </div>
+    <div class="mb-5 sm:mb-8">
+      <label for="object" class="block mb-2 dark:text-white">Objet</label>
+      <select
+        id="object"
+        name="action" x-model="action" x-ref="object"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        required>
+        <option value="">Sélectionnez une option</option>
+        {{ range .objects }}
+        <option value="{{ .value }}">{{ .name }}</option>
+        {{ end }}
+      </select>
+      <input x-cloak type="text" id="reason" x-show="action === 'autre'" placeholder="Précisez votre demande" class="bg-gray-50 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary">
     </div>
     <div class="mb-5 sm:mb-8">
       <label for="message" class="block mb-2 dark:text-white">Message</label>

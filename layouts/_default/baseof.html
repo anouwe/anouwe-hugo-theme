@@ -32,6 +32,12 @@
 }"
 x-init="window.addEventListener('cookie-preferences-updated', () => cookieBannerVisible = false)"
  {{ end }} class="min-h-screen flex flex-col">
+ {{ if .Site.Params.googleAnalytics }}
+ <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.googleAnalytics }}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ {{ end }}
     {{ partial "header" . }}
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 w-full">
       {{ block "main" . }}{{ end }}

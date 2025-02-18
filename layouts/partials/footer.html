@@ -1,30 +1,9 @@
-<footer :class="cookieBannerVisible ? 'pb-44 sm:pb-12' : 'pb-0'" class="bg-secondary text-white mt-auto w-full" role="contentinfo">
+<footer x-data :class="cookieBannerVisible ? 'pb-20 sm:pb-8' : 'pb-0'" class="bg-secondary text-white mt-auto w-full" role="contentinfo">
   <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col lg:flex-row lg:justify-between">
       <div class="mb-8 lg:mb-0">
         <div class="flex flex-col sm:flex-row items-center sm:items-end justify-center sm:justify-start">
-          <a x-cloak href="{{ .Site.BaseURL }}" aria-label="Page d'accueil" class="shrink-0">
-            {{ with .Site.Params.logo }}
-              {{ if .secondary }}
-                <img
-                  src="{{ .secondary }}"
-                  alt="/{{ .Site.Title }}"
-                  class="h-8 w-auto max-w-[200px] dark:hidden"
-                />
-              {{ end }}
-              {{ if .primary }}
-                <img
-                  src="{{ .primary }}"
-                  alt="/{{ .Site.Title }}"
-                  class="h-8 w-auto max-w-[200px] hidden dark:block"
-                />
-              {{ end }}
-            {{ end }}
-          </a>
-          {{ with .Site.Params.tagline }}
-          <span class="text-sm text-gray-400 dark:text-gray-500 whitespace-nowrap sm:ml-2 mt-1 sm:mt-0">
-            {{ . }}</span>
-            {{ end }}
+          {{ partial "footer_logo" . }}
         </div>
       </div>
       <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 ml-0 sm:ml-10 lg:ml-0 lg:mt-2 sm:w-fit">

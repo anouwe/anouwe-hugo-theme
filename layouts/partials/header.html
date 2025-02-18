@@ -5,28 +5,7 @@
   <div class="max-w-[85rem] w-full mx-auto px-4 md:px-6 lg:px-8">
     <div class="relative flex items-center justify-between" x-data="{ open: false }">
       <div class="flex items-center">
-        <a x-cloak href="{{ .Site.BaseURL }}" class="flex items-center">
-          {{ with .Site.Params.logo }}
-            {{ if .primary }}
-              <img
-                src="{{ .primary }}"
-                alt="/"
-                class="h-8 w-auto max-w-[200px] dark:hidden"
-                style="visibility: hidden"
-                onload="this.style.visibility='visible'"
-              />
-            {{ end }}
-            {{ if .secondary }}
-              <img
-                  src="{{ .secondary }}"
-                  alt="/{{ .Site.Title }}"
-                  class="h-8 w-auto max-w-[200px] hidden dark:block"
-                  style="visibility: hidden"
-                  onload="this.style.visibility='visible'"
-                />
-            {{ end }}
-          {{ end }}
-        </a>
+        {{ partial "header_logo" . }}
       </div>
 
       <div class="flex items-center gap-x-2 lg:order-2">

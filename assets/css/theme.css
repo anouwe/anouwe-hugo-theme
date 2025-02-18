@@ -50,8 +50,14 @@
     body {
         font-family: 'Poppins', sans-serif !important;
     }
+    h1 {
+      @apply max-w-2xl mb-4 text-4xl tracking-tight font-extrabold text-secondary dark:text-white;
+    }
     h2 {
       @apply mb-4 text-4xl tracking-tight font-extrabold text-secondary dark:text-white;
+    }
+    h3 {
+      @apply mb-2 text-lg font-bold text-secondary dark:text-white;
     }
 }
 

@@ -34,7 +34,7 @@
     <div class="text-center sm:flex items-center sm:justify-between">
       <span class="text-sm text-gray-400 dark:text-gray-500 flex flex-wrap gap-1 justify-center sm:justify-start">
         © {{ with .Site.Params.copyright.startYear }}{{ . }}-{{ end }}{{ now.Format "2006" }} {{ .Site.Params.Company }}. Tous droits
-        réservés.{{ with .Site.Params.copyright.branding }} <span class="basis-full sm:basis-auto">{{ . }}.</span>{{ end }}
+        réservés.{{ with .Site.Params.copyright.branding }} <span class="basis-full sm:basis-auto">{{ . }}</span>{{ end }}
       </span>
 
       <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 items-center justify-center sm:justify-start mt-4 sm:mt-0">

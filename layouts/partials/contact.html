@@ -1,59 +1,63 @@
 {{ with .Params.contact }}
-<section id="contact" class="bg-white dark:bg-gray-900 next-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
+<section id="contact" class="bg-white next-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
   @set-action.window="action = $event.detail.action; focusObject()">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
   
     <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary dark:text-white">{{ .title | default "Contact" }}</h2>
-      <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">{{ .description | default "Notre contact." }}</p>
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary">{{ .title | default "Contact" }}</h2>
+      <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description | default "Notre contact." }}</p>
     </div>
   
     <form
     id="contactForm"
     name="contact"
     class="max-w mx-auto p-2 sm:p-4"
+    method="post"
     netlify
   >
     <div class="mb-5 sm:mb-8">
-      <label for="name" class="block mb-2 dark:text-white">Nom</label>
+      <label for="name" class="block mb-2">Nom</label>
       <input
         type="text"
         id="name"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        name="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
         placeholder="Votre nom"
         required
       />
     </div>
     <div class="mb-5 sm:mb-8">
-      <label for="email" class="block mb-2 dark:text-white">Email</label>
+      <label for="email" class="block mb-2">Email</label>
       <input
         type="email"
         id="email"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        name="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
         placeholder="nom@example.ch"
         required
       />
     </div>
     <div class="mb-5 sm:mb-8">
-      <label for="object" class="block mb-2 dark:text-white">Objet</label>
+      <label for="object" class="block mb-2">Objet</label>
       <select
         id="object"
         name="action" x-model="action" x-ref="object"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
         required>
         <option value="">Sélectionnez une option</option>
         {{ range .objects }}
         <option value="{{ .value }}">{{ .name }}</option>
         {{ end }}
       </select>
-      <input x-cloak type="text" id="reason" x-show="action === 'autre'" placeholder="Précisez votre demande" class="bg-gray-50 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary">
+      <input x-cloak type="text" id="reason" x-show="action === 'autre'" placeholder="Précisez votre demande" class="bg-gray-50 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
     </div>
     <div class="mb-5 sm:mb-8">
-      <label for="message" class="block mb-2 dark:text-white">Message</label>
+      <label for="message" class="block mb-2">Message</label>
       <textarea
         id="message"
+        name="message"
         rows="5"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-secondary dark:border-secondary dark:placeholder-secondary-300 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
         placeholder="Votre message"
         required
       ></textarea>
@@ -62,13 +66,14 @@
       <div class="flex items-center h-5">
         <input
           id="remember"
+          name="remember"
           type="checkbox"
           value=""
-          class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary dark:bg-secondary dark:border-secondary-300 dark:focus:ring-primary dark:ring-offset-secondary dark:focus:ring-offset-secondary"
+          class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary"
           required
         />
       </div>
-      <label for="remember" class="ms-2 text-sm dark:text-gray-300"
+      <label for="remember" class="ms-2 text-sm"
         >J'accepte que mes données personnelles soient collectées
         conformément à la
         <a
@@ -88,7 +93,12 @@
       </button>
     </div>
   </form>
-  
-    </div>
+  </div>
+  <div id="contactFormToast" class="hidden fixed z-50 bottom-10 right-1/2 translate-x-1/2 inline-flex items-center max-w-max p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-sm opacity-0 transition-opacity duration-500" role="alert">
+    <svg id = "contactFormToastIcon" class="w-5 h-5 text-primary rotate-45 origin-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"/>
+    </svg>
+    <div id="contactFormToastMessage" class="ps-4 text-sm font-normal whitespace-nowrap">Message envoyé avec succès.</div>
+</div>
 </section>
 {{ end }}

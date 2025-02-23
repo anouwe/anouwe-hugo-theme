@@ -1,23 +1,23 @@
 {{ with .Params.pricing_horizontal }}
-<section id="pricing" class="bg-white dark:bg-gray-900">
+<section id="pricing" class="bg-white">
   <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
-    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary dark:text-white">{{ .title | default "Prix" }}</h2>
-    <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">{{ .description | default "Une formule unique." }}</p>
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary">{{ .title | default "Prix" }}</h2>
+    <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description | default "Une formule unique." }}</p>
 </div>
-<div class="grid grid-cols-3 gap-6 items-start bg-white rounded-lg border border-gray-100 shadow dark:border-primary-600 dark:bg-gray-800">
+<div class="grid grid-cols-3 gap-6 items-start bg-white rounded-lg border border-gray-100 shadow">
   <div class="col-span-2 p-8 h-full">
     <h3 class="mb-1 text-2xl text-secondary font-semibold">{{ .features_title | default "Prix adapté" }}</h3>
-    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">{{ .features_description | default "Des fonctionnalités étendues." }}</p>
+    <p class="font-light text-gray-500 sm:text-lg">{{ .features_description | default "Des fonctionnalités étendues." }}</p>
     <div class="mt-6">
       <ul class="grid grid-cols-3 gap-2">
         {{ range .features }}
         <li class="flex space-x-3 truncate">
           {{ if eq .type "included" }}
-          <svg class="flex-shrink-0 w-5 h-5 text-primary dark:text-primary-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <svg class="flex-shrink-0 w-5 h-5 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
           </svg>
           {{ end }}
-          <span class="text-sm font-light text-gray-800 dark:text-gray-200">{{ .text }}</span>
+          <span class="text-sm font-light text-gray-800">{{ .text }}</span>
         </li>
         {{ end }}
       </ul>

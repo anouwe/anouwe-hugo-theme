@@ -9,16 +9,16 @@
       <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 ml-0 sm:ml-10 lg:ml-0 lg:mt-2 sm:w-fit">
         {{ range .Site.Menus.footer }}
         <div>
-            <div class="mb-4 font-semibold uppercase text-white dark:text-gray-900 text-center sm:text-left">{{ .Name }}</div>
+            <div class="mb-4 font-semibold uppercase text-white text-center sm:text-left">{{ .Name }}</div>
             {{ if .HasChildren }}
-            <ul class="text-gray-300 dark:text-gray-600 text-center sm:text-left">
+            <ul class="text-gray-300 text-center sm:text-left">
               {{ range .Children }}
                 <li class="mb-4">
                   <a
                   {{ if not .Params.click }}href="{{ .URL }}"{{ end }}
                     {{ if .Params.click }}@click="{{ .Params.click }}"{{ end }}
                     {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
-                    class="hover:text-white dark:hover:text-gray-900 cursor-pointer"
+                    class="hover:text-white cursor-pointer"
                     aria-label="{{ .Name }}"
                     >{{ .Name }}</a
                   >
@@ -30,9 +30,9 @@
         {{ end }}
       </div>
     </div>
-    <hr class="my-6 border-gray-700 sm:mx-auto dark:border-gray-200 lg:my-8" />
+    <hr class="my-6 border-gray-700 sm:mx-auto lg:my-8" />
     <div class="text-center sm:flex items-center sm:justify-between">
-      <span class="text-sm text-gray-400 dark:text-gray-500 flex flex-wrap gap-1 justify-center sm:justify-start">
+      <span class="text-sm text-gray-400 flex flex-wrap gap-1 justify-center sm:justify-start">
         © {{ with .Site.Params.copyright.startYear }}{{ . }}-{{ end }}{{ now.Format "2006" }} {{ .Site.Params.Company }}. Tous droits
         réservés.{{ with .Site.Params.copyright.branding }} <span class="basis-full sm:basis-auto">{{ . }}</span>{{ end }}
       </span>
@@ -43,7 +43,7 @@
             {{ if .linkedin}}
             <a
               href="https://www.linkedin.com/company/{{ .linkedin }}"
-              class="inline-flex gap-2 text-gray-400 hover:text-white dark:hover:text-gray-900"
+              class="inline-flex gap-2 text-gray-400 hover:text-white"
               aria-label="Linkedin {{ .Site.Title }}"
               target="_blank"
             >

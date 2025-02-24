@@ -1,7 +1,5 @@
 {{ with .Params.cta_cards }}
-<section id="cta" class="bg-white">
-  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-
+<section id="cta" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
     <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
         <h2>{{ .title | default "Call-to-Action" }}</h2>
         <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description | default "Passez à l'action." }}</p>
@@ -35,6 +33,5 @@
       </div>
     </div>
       {{ end }}
-  </div>
 </section>
 {{ end }}

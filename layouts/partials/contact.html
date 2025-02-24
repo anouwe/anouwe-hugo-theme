@@ -1,8 +1,6 @@
 {{ with .Params.contact }}
-<section id="contact" class="bg-white next-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
+<section id="contact" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
   @set-action.window="action = $event.detail.action; focusObject()">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-  
     <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary">{{ .title | default "Contact" }}</h2>
       <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description | default "Notre contact." }}</p>
@@ -100,6 +98,5 @@
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"/>
     </svg>
     <div id="contactFormToastMessage" class="ps-4 text-sm font-normal whitespace-nowrap">Message envoyé avec succès.</div>
-</div>
 </section>
 {{ end }}

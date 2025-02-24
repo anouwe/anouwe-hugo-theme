@@ -35,29 +35,78 @@
         </button>
       </div>
       <nav
-        class="hidden absolute top-full left-0 right-0 bg-white border-b lg:static lg:block lg:border-none mt-3 lg:mt-0 w-full lg:w-auto"
-        :class="{ 'hidden': !open }"
-        >
-        <ul
-          class="flex flex-col mt-4 font-semibold text-secondary lg:flex-row lg:space-x-8 lg:mt-2"
-        >
-          {{ range .Site.Menus.main }}
-          <li>
-            <a
-              href="{{ .URL }}"
-              {{ if strings.HasPrefix .URL "http" }}
-              rel="noopener"
-              {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
-              {{ end }}
+      class="hidden absolute top-full left-0 right-0 bg-white border-b lg:static lg:block lg:border-none mt-3 lg:mt-0 w-full lg:w-auto"
+      :class="{ 'hidden': !open }"
+      >
+      <ul
+        class="flex flex-col items-center mt-4 font-semibold text-secondary lg:flex-row lg:space-x-8 lg:mt-2"
+      >
+        {{ range .Site.Menus.main }}
+        <li class="relative">
+          {{ if .HasChildren }}
+            <button 
+              id="dropdownNavbarLink-{{ .Name | urlize }}" 
+              data-dropdown-toggle="dropdownNavbar-{{ .Name | urlize }}" 
+              class="flex items-center justify-between w-full py-2 px-3 hover:text-primary md:hover:bg-transparent md:border-0 md:p-0 md:w-auto">
+              {{ .Name }}
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+        
+            <div 
+              id="dropdownNavbar-{{ .Name | urlize }}" 
+              class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg flex flex-col w-auto 
+                      lg:absolute lg:top-full lg:left-0 overflow-hidden lg:overflow-visible">
               
-              class="block font-semibold py-2 pr-4 pl-3 hover:text-primary lg:p-0"
-              @click="open = false"
-              >{{ .Name }}</a
-            >
-          </li>
+              <ul class="py-2 text-sm text-gray-700 w-auto" aria-labelledby="dropdownNavbarLink-{{ .Name | urlize }}">
+                {{ range .Children }}
+                  <li class="px-4 py-2">
+                    <a href="{{ .URL }}"
+                       {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+                       class="inline-block font-semibold hover:text-primary whitespace-nowrap">
+                      {{ .Name }}
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            </div>
+          {{ else }}
+            <a href="{{ .URL }}"
+               {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+               class="block font-semibold py-2 pr-4 pl-3 hover:text-primary lg:p-0">
+              {{ .Name }}
+            </a>
           {{ end }}
-        </ul>
-      </nav>
+        </li>
+        {{ end }}
+        {{ with .Site.Params.social }}
+        <li>
+        <div class="flex justify-center gap-2">
+          {{ if .linkedin}}
+          <a
+            href="https://www.linkedin.com/company/{{ .linkedin }}"
+            class="inline-flex py-2 text-gray-400 hover:text-primary"
+            aria-label="Linkedin {{ .Site.Title }}"
+            target="_blank"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              />
+            </svg>
+          </a>
+          {{ end }}
+        </div>
+      </li>
+      {{ end }}
+      </ul>
+    </nav>
     </div>
   </div>
 </header>

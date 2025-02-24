@@ -12,7 +12,10 @@
         {{ with .Site.Params.header.action }}
         <a
           href="{{ .url }}"
+          {{ if strings.HasPrefix .url "http" }}
+          rel="noopener"
           target="{{ .target | default "_self" }}"
+          {{ end }}
           class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90"
         >
           {{ .name }}
@@ -42,7 +45,11 @@
           <li>
             <a
               href="{{ .URL }}"
+              {{ if strings.HasPrefix .URL "http" }}
+              rel="noopener"
               {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+              {{ end }}
+              
               class="block font-semibold py-2 pr-4 pl-3 hover:text-primary lg:p-0"
               @click="open = false"
               >{{ .Name }}</a

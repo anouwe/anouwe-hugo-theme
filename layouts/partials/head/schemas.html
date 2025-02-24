@@ -1,0 +1,84 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.Params.logo.primary }}",
+  "description": "{{ .Site.Params.description }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ .Site.Params.streetAddress }}",
+    "addressLocality": "{{ .Site.Params.addressLocality }}",
+    "postalCode": "{{ .Site.Params.postalCode }}",
+    "addressCountry": "{{ .Site.Params.addressCountry }}"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "{{ .Site.Params.email}}",
+    "contactType": "customer service"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "{{ .Site.Title }}",
+        "item": "{{ .Site.BaseURL }}"
+    }, {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ .Title }}",
+        "item": "{{ .Permalink }}"
+    }]
+}
+</script>
+{{ if .Params.Schema }}
+  {{ if eq .Params.Schema.type "Article" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ .Title }}",
+    "description": "{{ .Description }}",
+    "datePublished": "{{ .Date.Format "2006-01-02" }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Params.Schema.author }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}"
+    }
+  }
+  </script>
+  {{ else if eq .Params.Schema.type "Product" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ .Title }}",
+    "description": "{{ .Description }}",
+    "offers": {
+      "@type": "Offer",
+      "price": "{{ .Params.Schema.price }}",
+      "priceCurrency": "CHF"
+    }
+  }
+  </script>
+  {{ else if eq .Params.Schema.type "WebPage" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{ .Title }}",
+    "description": "{{ .Description }}",
+    "url": "{{ .Permalink }}"
+  }
+  </script>
+  {{ end }}
+{{ end }}

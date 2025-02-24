@@ -17,7 +17,7 @@
                   <a
                   {{ if not .Params.click }}href="{{ .URL }}"{{ end }}
                     {{ if .Params.click }}@click="{{ .Params.click }}"{{ end }}
-                    {{ if .Params.target }}target="{{ .Params.target }}"{{ end }}
+                    {{ if .Params.target }}rel="noopener" target="{{ .Params.target }}"{{ end }}
                     class="hover:text-white cursor-pointer"
                     aria-label="{{ .Name }}"
                     >{{ .Name }}</a
@@ -45,6 +45,7 @@
               href="https://www.linkedin.com/company/{{ .linkedin }}"
               class="inline-flex gap-2 text-gray-400 hover:text-white"
               aria-label="Linkedin {{ .Site.Title }}"
+              rel="noopener"
               target="_blank"
             >
               <svg

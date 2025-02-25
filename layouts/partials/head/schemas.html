@@ -1,75 +1,73 @@
 <script type="application/ld+json">
-  {{- $json := dict 
-    "@context" "https://schema.org"
-    "@type" "Organization"
-    "name" .Site.Title
-    "url" .Site.BaseURL
-    "logo" .Site.Params.logoRef
-    "description" .Site.Params.description
-    "address" (dict
-      "@type" "PostalAddress"
-      "streetAddress" .Site.Params.streetAddress
-      "addressLocality" .Site.Params.addressLocality
-      "postalCode" .Site.Params.postalCode
-      "addressCountry" .Site.Params.addressCountry
-    )
-    "contactPoint" (dict
-      "@type" "ContactPoint"
-      "email" .Site.Params.email
-      "contactType" "customer service"
-    )
-  | jsonify | safeJS -}}
-  {{ $json }}
+  {{- $sections := .Params.sections | default slice -}}
+  {{- $pricing := .Params.pricing | default slice -}}
+  {{- $json := dict
+      "@context" "https://schema.org"
+      "@type" "Organization"
+      "name" .Site.Title
+      "url" .Site.BaseURL
+      "logo" .Site.Params.logoRef
+      "description" .Site.Params.description
+      "address" (dict
+          "@type" "PostalAddress"
+          "streetAddress" .Site.Params.streetAddress
+          "addressLocality" .Site.Params.addressLocality
+          "postalCode" .Site.Params.postalCode
+          "addressCountry" .Site.Params.addressCountry
+      )
+      "contactPoint" (dict
+          "@type" "ContactPoint"
+          "email" .Site.Params.email
+          "contactType" "customer service"
+      )
+  -}}
+  {{- if $sections }}
+  {{- $hasPart := slice -}}
+  {{- range $sections }}
+  {{- $section := . }}
+  {{- $hasPart = $hasPart | append (dict
+      "@type" (or (index (index $.Params $section) "type") "WebPageElement")
+      "@id" (printf "#%s" $section)
+      "name" (index (index $.Params $section) "title")
+  ) -}}
+  {{- end }}
+  {{- $json = merge $json (dict
+      "mainEntityOfPage" (dict
+          "@type" "WebPage"
+          "@id" .Site.BaseURL
+          "name" .Site.Title
+          "hasPart" $hasPart
+      )
+  ) -}}
+  {{- end -}}
+  {{- if and $pricing .Params.pricing.plans }}
+  {{- $offers := slice -}}
+  {{- range .Params.pricing.plans }}
+  {{- $offers = $offers | append (dict
+      "@type" "Offer"
+      "name" .name
+      "description" .description
+  ) -}}
+  {{- end }}
+  {{- $json = merge $json (dict
+      "offers" (dict
+          "@type" "AggregateOffer"
+          "offerCount" (len .Params.pricing.plans)
+          "offers" $offers
+      )
+  ) -}}
+  {{- end -}}
+  {{- $json = merge $json (dict
+      "areaServed" (dict
+          "@type" "GeoCircle"
+          "geoMidpoint" (dict
+              "@type" "GeoCoordinates"
+              "latitude" .Site.Params.latitude
+              "longitude" .Site.Params.longitude
+              "addressRegion" .Site.Params.addressRegion
+          )
+          "geoRadius" .Site.Params.geoRadius
+      )
+  ) -}}
+  {{ $json | jsonify | safeJS }}
   </script>
-  
-  <script type="application/ld+json">
-  {{- $breadcrumbs := slice
-    (dict "@type" "ListItem" "position" 1 "name" .Site.Title "item" .Site.BaseURL)
-    (dict "@type" "ListItem" "position" 2 "name" .Title "item" .Permalink)
-  | jsonify | safeJS -}}
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": {{ $breadcrumbs }}
-  }
-  </script>
-  
-  {{ if .Params.Schema }}
-    {{ if eq .Params.Schema.type "Article" }}
-    <script type="application/ld+json">
-    {{- $json := dict
-      "@context" "https://schema.org"
-      "@type" "Article"
-      "headline" .Title
-      "description" .Description
-      "datePublished" (.Date.Format "2006-01-02")
-      "author" (dict "@type" "Person" "name" .Params.Schema.author)
-      "publisher" (dict "@type" "Organization" "name" .Site.Title)
-    | jsonify | safeJS -}}
-    {{ $json }}
-    </script>
-    {{ else if eq .Params.Schema.type "Product" }}
-    <script type="application/ld+json">
-    {{- $json := dict
-      "@context" "https://schema.org"
-      "@type" "Product"
-      "name" .Title
-      "description" .Description
-      "offers" (dict "@type" "Offer" "price" .Params.Schema.price "priceCurrency" "CHF")
-    | jsonify | safeJS -}}
-    {{ $json }}
-    </script>
-    {{ else if eq .Params.Schema.type "WebPage" }}
-    <script type="application/ld+json">
-    {{- $json := dict
-      "@context" "https://schema.org"
-      "@type" "WebPage"
-      "name" .Title
-      "description" .Description
-      "url" .Permalink
-    | jsonify | safeJS -}}
-    {{ $json }}
-    </script>
-    {{ end }}
-  {{ end }}
-  

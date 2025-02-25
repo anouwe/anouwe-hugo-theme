@@ -53,6 +53,16 @@ document.addEventListener('alpine:init', () => {
     
     localStorage.setItem('cookies-settings', JSON.stringify(preferences));
     
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'consent_update',
+        analytics_storage: this.preferences.analytics_storage ? 'granted' : 'denied',
+        ad_storage: this.preferences.ad_storage ? 'granted' : 'denied',
+        ad_personalization: this.preferences.ad_personalization ? 'granted' : 'denied',
+        ad_user_data: this.preferences.ad_user_data ? 'granted' : 'denied'
+      });
+    }
+
     if (typeof window.gtag === 'function') {
         window.gtag('consent', 'update', {
             'analytics_storage': this.preferences.analytics_storage ? 'granted' : 'denied',

@@ -1,4 +1,5 @@
-
+{{ with .Site.Params.cookies }}
+{{ if .active }}
 <div x-data="{ 
     show: (() => {
         const stored = JSON.parse(localStorage.getItem('cookies-settings') || '{}');
@@ -25,6 +26,7 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
     <!-- Panneau de personnalisation -->
     <div x-show="showDetails" class="p-4 border-t border-gray-200">
         <div class="max-w-4xl mx-auto space-y-4">
+            {{ if .analyticsStorage }}
             <label class="flex items-center justify-between p-2 hover:bg-gray-100 rounded">
                 <div>
                     <span class="text-sm font-medium">Cookies analytiques</span>
@@ -32,7 +34,8 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
                 </div>
                 <input type="checkbox" x-model="$store.cookiePreferences.preferences.analytics_storage" class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary">
             </label>
-        
+            {{ end }}
+            {{ if .adStorage }}
             <label class="flex items-center justify-between p-2 hover:bg-gray-100 rounded">
                 <div>
                     <span class="text-sm font-medium">Stockage publicitaire</span>
@@ -40,7 +43,8 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
                 </div>
                 <input type="checkbox" x-model="$store.cookiePreferences.preferences.ad_storage" class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary">
             </label>
-        
+            {{ end }}
+            {{ if .adPersonalization }}
             <label class="flex items-center justify-between p-2 hover:bg-gray-100 rounded">
                 <div>
                     <span class="text-sm font-medium">Personnalisation publicitaire</span>
@@ -48,7 +52,8 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
                 </div>
                 <input type="checkbox" x-model="$store.cookiePreferences.preferences.ad_personalization" class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary">
             </label>
-        
+            {{ end }}
+            {{ if .adUserData }}
             <label class="flex items-center justify-between p-2 hover:bg-gray-100 rounded">
                 <div>
                     <span class="text-sm font-medium">Données utilisateur</span>
@@ -56,6 +61,7 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
                 </div>
                 <input type="checkbox" x-model="$store.cookiePreferences.preferences.ad_user_data" class="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary checked:bg-primary checked:border-primary">
             </label>
+            {{ end }}
             <div class="flex justify-end mt-4">
                 <button @click="$store.cookiePreferences.updatePreferences(); show = false" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90">
                     Enregistrer mes choix
@@ -92,3 +98,5 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
         </div>
     </div>
 </div>
+{{ end }}
+{{ end }}

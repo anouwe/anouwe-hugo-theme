@@ -45,6 +45,7 @@
                 href="{{ .social_links.linkedin }}"
                 class="text-gray-400 hover:text-primary transition-colors"
                 aria-label="Linkedin de {{ .name }}"
+                rel="noopener"
                 target="_blank"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -60,6 +61,7 @@
                 href="{{ .url }}"
                 class="text-gray-400 hover:text-primary transition-colors"
                 aria-label="Lien externe {{ .name }}"
+                rel="noopener"
                 target="_blank"
               >
               {{ partial "dynamic_symbol" . }}

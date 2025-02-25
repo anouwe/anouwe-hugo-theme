@@ -3,14 +3,14 @@
     {{ if .primary }}
     <img
       src="{{ .primary }}"
-      alt="{{ .Site.Title }}"
+      alt="{{ .Site.Title }} footer logo"
       class="h-8 w-auto max-w-[200px] dark:hidden"
     />
     {{ end }}
     {{ if .secondary }}
       <img
         src="{{ .secondary }}"
-        alt="{{ .Site.Title }}"
+        alt="{{ .Site.Title }} footer logo dark mode"
         class="h-8 w-auto max-w-[200px] hidden dark:block"
       />
     {{ end }}

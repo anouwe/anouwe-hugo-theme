@@ -4,5 +4,6 @@
 <meta name="keywords" content="{{ delimit .Keywords " " }}">
 <meta name="description" content="{{ .Description }}">
 <meta name="author" content="{{ .Site.Author.name }}">
-<meta name="theme-color" content="#113946">
+<meta name="theme-color" content="{{ .Site.Params.secondaryColor }}">
+<meta name="mozilla:navigationColor" content="{{ .Site.Params.secondaryColor }}">
 <link rel="canonical" href="{{ .Permalink }}" />

@@ -52,6 +52,7 @@ document.addEventListener('alpine:init', () => {
     };
     
     localStorage.setItem('cookies-settings', JSON.stringify(preferences));
+    document.cookie = `cookie-consent=${JSON.stringify(this.preferences)};max-age=${180*24*60*60};path=/;SameSite=None;Secure`;
     
     if (window.dataLayer) {
       window.dataLayer.push({

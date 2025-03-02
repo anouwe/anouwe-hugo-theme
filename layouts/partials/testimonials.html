@@ -19,7 +19,9 @@
             src="{{ .image }}" 
             alt="Photo de {{ .name }}"
             loading="lazy"
-            class="w-12 h-12 rounded-full" >
+            class="w-12 h-12 rounded-full"
+            width="48"
+            height="48" >
             {{ else }}
             <div class="flex justify-center items-center w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12">
               {{ partial "svg/user.svg" (dict "class" "w-5 h-5 lg:w-6 lg:h-6") }}

@@ -1,0 +1,10 @@
+/* root variables */
+:root {
+  /* z-index layers */
+  --z-index-dropdown: 10;
+  --z-index-sticky: 20;
+  --z-index-fixed: 30;
+  --z-index-modal-backdrop: 40;
+  --z-index-modal: 50;
+  --z-index-toast: 60;
+}

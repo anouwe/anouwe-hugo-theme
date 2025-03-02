@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: 'class',
   content: [
@@ -13,68 +14,44 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          'DEFAULT': '#007B79',
-          50: '#E6F3F3',
-          100: '#CCE8E7',
-          200: '#99D1D0',
-          300: '#66BAB9',
-          400: '#33A3A1',
-          500: '#007B79',
-          600: '#006261',
-          700: '#004A49',
-          800: '#003130',
-          900: '#001918',
+          'DEFAULT': 'var(--primary-color)',
+          50: 'var(--primary-50)',
+          100: 'var(--primary-100)',
+          200: 'var(--primary-200)',
+          300: 'var(--primary-300)',
+          400: 'var(--primary-400)',
+          500: 'var(--primary-500)',
+          600: 'var(--primary-600)',
+          700: 'var(--primary-700)',
+          800: 'var(--primary-800)',
+          900: 'var(--primary-900)',
         },
         secondary: {
-          'DEFAULT': '#113946',
-          50: '#E7EBED',
-          100: '#CFD7DC',
-          200: '#9FB0B9',
-          300: '#708895',
-          400: '#406172',
-          500: '#113946',
-          600: '#0E2E38',
-          700: '#0A222A',
-          800: '#07171C',
-          900: '#030B0E',
+          'DEFAULT': 'var(--secondary-color)',
+          50: 'var(--secondary-50)',
+          100: 'var(--secondary-100)',
+          200: 'var(--secondary-200)',
+          300: 'var(--secondary-300)',
+          400: 'var(--secondary-400)',
+          500: 'var(--secondary-500)',
+          600: 'var(--secondary-600)',
+          700: 'var(--secondary-700)',
+          800: 'var(--secondary-800)',
+          900: 'var(--secondary-900)',
         },
       },
       inset: {
         '[1px]': '1px'
       },
       fontFamily: {
-        'body': [
-          'Poppins',
-          'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'Noto Sans',
-          'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-          'Noto Color Emoji'
-    ],
-        'sans': [
-          'Poppins',
-          'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'Noto Sans',
-          'sans-serif',
-          'Apple Color Emoji',
-          'Segoe UI Emoji',
-          'Segoe UI Symbol',
-          'Noto Color Emoji'
-    ]
+        'body': ['var(--primary-font)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        'sans': ['var(--primary-font)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif']
+      },
+      borderRadius: {
+        'DEFAULT': 'var(--border-radius)',
+      },
+      spacing: {
+        'heading': 'var(--heading-spacing)',
       }
     }
   },

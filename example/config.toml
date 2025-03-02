@@ -90,10 +90,6 @@ contentDir = "content"
   company = "bacworks sàrl"
   title = "anouwé"
   tagline = "bâtir un avenir au-delà des murs"
-  # Formatting
-  primaryColor = "#007B79"
-  secondaryColor = "#113946"
-  mainFont = "Poppins"
   # Open Graph default
   description = "conseil stratégique et opérationnel pour PME de la construction"
   images = ["/images/anouwe-social.png"]
@@ -113,6 +109,25 @@ contentDir = "content"
   # Footer
   [params.footer.ecoindex]
     active = true
+  # Theme
+  [params.theme]
+    # Main color
+    primaryColor = "#007B79"   # Primary color (default: #007B79)
+    secondaryColor = "#113946" # Secondary color (default: #113946)
+    # Typographie
+    primaryFont = "Poppins"    # Primary font (options: "Poppins", "Roboto", "Inter")
+    # Charts
+    [params.theme.lightChart]
+      50 = 0.93
+      100 = 0.84
+      200 = 0.68
+      300 = 0.45
+      400 = 0.23
+    [params.theme.darkChart]
+      600 = 0.22
+      700 = 0.41
+      800 = 0.60
+      900 = 0.79
 
 [permalinks]
   profiles = "/profiles/:filename"

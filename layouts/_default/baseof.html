@@ -8,6 +8,8 @@
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/schema.html" . }}
     {{ partial "head/favicons.html" . }}
+    {{ partial "head/fonts.html" . }}
+    {{ partial "head/css-variables.html" . }}    
     {{ $main := resources.Get "css/main.css" }}
     {{ $css := slice $main | resources.Concat "css/bundle.css" | css.PostCSS }}
     {{ if hugo.IsProduction }}

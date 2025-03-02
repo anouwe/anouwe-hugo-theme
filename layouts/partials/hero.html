@@ -19,22 +19,28 @@
             </p>
 
             {{ with .cta_primary }}
-            <a href="{{ .url | default "#contact" }}" 
-              {{ if .action }}@click="$dispatch('set-action', { action: '{{ .action }}' })"{{ end }} 
-              class="inline-flex items-center justify-center px-5 py-3 mr-3 text-sm sm:text-base font-medium text-center text-white rounded-lg bg-primary hover:bg-opacity-90 focus:ring-4 focus:ring-primary-300"
-              aria-label="{{ .name }}">
-                {{ .name }}
-                {{ partial "svg/arrow-right.svg" (dict "class" "w-5 h-5 ml-2 -mr-1") }}
-            </a>
+            {{ partial "components/button.html" (dict 
+                "url" (.url | default "#contact") 
+                "text" .name 
+                "style" "primary" 
+                "variant" "hero"
+                "class" "mr-3"
+                "icon" "arrow-right" 
+                "iconPosition" "right" 
+                "action" .action 
+                "aria" .name ) 
+            }}
             {{ end }}
 
             {{ with .cta_secondary }}
-            <a href="{{ .url | default "#contact" }}" 
-              {{ if .action }}@click="$dispatch('set-action', { action: '{{ .action }}' })"{{ end }} 
-              class="inline-flex mt-4 md:mt-0 items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
-              aria-label="{{ .name }}">
-                {{ .name }}
-            </a>
+            {{ partial "components/button.html" (dict 
+                "url" (.url | default "#contact") 
+                "text" .name 
+                "style" "secondary" 
+                "variant" "hero"
+                "action" .action 
+                "aria" .name ) 
+            }}
             {{ end }}
         </div>
 

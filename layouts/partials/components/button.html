@@ -1,0 +1,39 @@
+<!-- 
+  Classes reference for PurgeCSS
+  class="btn-primary btn-secondary btn-hero"
+-->
+
+{{ $url := .url | default "#" }}
+{{ $style := .style | default "primary" }}
+{{ $text := .text | default "Button" }}
+{{ $variant := .variant | default "default" }}
+{{ $action := .action }}
+{{ $iconPosition := .iconPosition | default "right" }}
+{{ $target := .target }}
+
+<!-- Enhanced external link detection -->
+{{ $isExternal := false }}
+{{ if or (hasPrefix $url "http://") (hasPrefix $url "https://") }}
+  <!-- Check if the full URL does not contain the site URL -->
+  {{ $isExternal = not (hasPrefix $url (absURL "/")) }}
+{{ else if not (or (hasPrefix $url "/") (hasPrefix $url "#") (hasPrefix $url "mailto:") (hasPrefix $url "tel:")) }}
+  <!-- If it's not an absolute link and not a known relative link, it's probably external -->
+  {{ $isExternal = true }}
+{{ end }}
+
+<a href="{{ $url }}" 
+   {{ if $action }}@click="$dispatch('set-action', { action: '{{ $action }}' })"{{ end }}
+   {{ if .aria }}aria-label="{{ .aria }}"{{ end }}
+   {{ if $target }}target="{{ $target }}"{{ end }}
+   {{ if or $isExternal (and $target (ne $target "_self")) }}rel="noopener noreferrer"{{ end }}
+   class="btn btn-{{ $style }} {{ if eq $variant "hero" }}btn-hero{{ end }} {{ with .class }}{{ . }}{{ end }}">
+  {{ if and .icon (eq $iconPosition "left") }}
+  {{ partial (printf "svg/%s.svg" .icon) (dict "class" "w-5 h-5 mr-2 -ml-1") }}
+  {{ end }}
+  
+  {{ $text }}
+  
+  {{ if and .icon (eq $iconPosition "right") }}
+  {{ partial (printf "svg/%s.svg" .icon) (dict "class" "w-5 h-5 ml-2 -mr-1") }}
+  {{ end }}
+</a>

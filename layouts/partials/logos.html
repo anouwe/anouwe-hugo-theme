@@ -1,9 +1,9 @@
 {{ with .Params.logos }}
-<section id="logos" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
+<section id="logos" class="landing-section">
   
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Nos clients" "description" .description) }}
 
-  <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
+  <div class="landing-section__content grid-cols-2 md:grid-cols-3 lg:grid-cols-6 text-gray-500 sm:gap-12">
     {{ if .list }}
     {{ range .list }}
     <div class="flex justify-center items-center">

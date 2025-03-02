@@ -1,11 +1,8 @@
 {{ with .Params.team }}
-<section
-  id="team"
-  class="landing-section"
->
+<section id="team" class="landing-section">
 {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Notre équipe" "description" .description) }}
 
-<div class="grid mx-auto gap-8 md:gap-14 grid-cols-1 sm:grid-cols-12 sm:items-start">
+<div class="landing-section__content gap-8 md:gap-14 sm:grid-cols-12 sm:items-start">
     <div class="sm:col-span-6 text-left">
       <div class="mb-5 text-gray-500 space-y-2 text-sm sm:text-lg">
         {{ .content | markdownify | default "Quelques détails supplémentaires."

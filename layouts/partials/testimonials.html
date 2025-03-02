@@ -3,14 +3,14 @@
   
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Témoignages" "description" .description) }}
 
-  <div class="sm:text-center grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="landing-section__content lg:grid-cols-2">
     {{ if .list }}
     {{ range .list }}
       <figure class="max-w-screen-md mx-auto">
         {{ partial "svg/quote.svg" (dict "class" "h-8 mx-auto mb-3 text-gray-400") }}
 
         <blockquote>
-          <p class="text-sm sm:text-base text-gray-900">{{ .quote }}</p>
+          <p class="text-sm sm:text-base sm:text-center text-gray-900">{{ .quote }}</p>
         </blockquote>
         
         <figcaption class="flex items-center sm:justify-center mt-6 space-x-3">

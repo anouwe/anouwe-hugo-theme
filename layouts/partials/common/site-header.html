@@ -10,16 +10,13 @@
 
       <div class="flex items-center gap-x-2 lg:order-2">
         {{ with .Site.Params.header.action }}
-        <a
-          href="{{ .url }}"
-          {{ if strings.HasPrefix .url "http" }}
-          rel="noopener"
-          target="{{ .target | default "_self" }}"
-          {{ end }}
-          class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90"
-        >
-          {{ .name }}
-        </a>
+        {{ partial "components/button.html" (dict 
+                "url" .url
+                "target" .target 
+                "text" .name 
+                "style" "primary" 
+                "aria" .name ) 
+            }}
         {{ end }}
         
         <button

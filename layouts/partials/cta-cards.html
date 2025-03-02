@@ -1,9 +1,9 @@
 {{ with .Params.cta_cards }}
-<section id="cta" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
+<section id="cta" class="landing-section">
 
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Call-to-Action" "description" .description) }}
     
-  <div class="space-y-8 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
+  <div class="landing-section__content md:grid-cols-2">
     {{ if .list }}
       {{ range .list }}
       <div>

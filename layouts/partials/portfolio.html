@@ -1,9 +1,9 @@
 {{ with .Params.portfolio }}
-<section id="portfolio" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
+<section id="portfolio" class="landing-section">
 
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Portfolio" "description" .description) }}
 
-  <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+  <div class="landing-section__content md:grid-cols-2 lg:grid-cols-3 md:gap-12">
   {{ if .list }}
     {{ range .list }}
     <div class="flex flex-col h-full">
@@ -17,12 +17,14 @@
       <p class="text-lg font-normal text-gray-500">
         {{ .description }}
       </p>
-      <a href="{{ .url }}"
-        class="text-white bg-primary-700 justify-center hover:bg-primary-800 inline-flex items-center  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        role="button">
-        {{ .button_text | default "Voir l'étude de cas" }}
-        {{ partial "svg/arrow-right.svg" (dict "class" "w-5 h-5 ml-2 -mr-1") }}
-      </a>
+      {{ partial "components/button.html" (dict 
+                "url" .url
+                "text" .button_text
+                "style" "primary" 
+                "icon" "arrow-right" 
+                "iconPosition" "right" 
+                "aria" .button_text ) 
+      }}
     </div>
     {{ end }}
   {{ else }}

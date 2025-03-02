@@ -5,8 +5,6 @@
         src="{{ .primary }}"
         alt="{{ .Site.Title }} header logo"
         class="h-8 w-auto max-w-[200px] dark:hidden"
-        style="visibility: hidden"
-        onload="this.style.visibility='visible'"
       />
     {{ end }}
     {{ if .secondary }}
@@ -14,8 +12,6 @@
           src="{{ .secondary }}"
           alt="{{ .Site.Title }} header logo dark mode"
           class="h-8 w-auto max-w-[200px] hidden dark:block"
-          style="visibility: hidden"
-          onload="this.style.visibility='visible'"
         />
     {{ end }}
   {{ end }}

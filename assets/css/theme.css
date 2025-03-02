@@ -1,3 +1,4 @@
+@import 'theme-variables.css';
 @import 'flag-icons/css/flag-icons.min.css';
 
 /* Font declaration */
@@ -87,16 +88,23 @@
   .landing-section__description {
     @apply mb-5 font-light text-gray-500 sm:text-xl;
   }
+  .landing-section__content {
+    @apply mx-auto space-y-8 grid grid-cols-1 gap-6 md:space-y-0;
+  }
 
   /* Buttons style */
+  .btn {
+    @apply py-2 px-4 rounded-lg inline-flex items-center justify-center text-center text-sm font-semibold
+  }
   .btn-primary {
-    @apply py-2 px-4 inline-flex justify-center items-center text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90 focus:ring-4 focus:ring-primary-300;
+    @apply text-white bg-primary hover:bg-opacity-90 focus:ring-4 focus:ring-primary-100;
   }
-  
   .btn-secondary {
-    @apply py-2 px-4 inline-flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100;
+    @apply text-gray-900 border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100;
   }
-
+  .btn-hero {
+    @apply py-3 px-5 text-sm sm:text-base font-medium;
+  }
 }
 
 /* AlpineJS */

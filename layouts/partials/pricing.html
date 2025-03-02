@@ -3,7 +3,7 @@
 
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Nos formules" "description" .description) }}
     
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ len .plans }} gap-6">
+  <div class="landing-section__content md:grid-cols-2 lg:grid-cols-{{ len .plans }}">
     {{ range .plans }}
         <div class="flex flex-col relative h-full p-6 bg-white rounded-lg border border-gray-100 shadow">
         <h3 class="mb-4 text-2xl text-center text-secondary font-semibold">{{ .name }}</h3>
@@ -56,11 +56,13 @@
         </div>
 
         <div class="flex mt-auto pt-4 justify-center">
-            <a href="{{ .button_url | default "#contact" }}" 
-                {{ if .action }}@click="$dispatch('set-action', { action: '{{ .action }}' })"{{ end }} 
-                class="text-white bg-[#007B79] hover:bg-opacity-90 focus:ring-4 focus:ring-primary-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center">
-                {{ .button_text | default "Commencer" }}
-            </a>
+            {{ partial "components/button.html" (dict 
+                "url" (.button_url | default "#contact") 
+                "text" .button_text 
+                "style" "primary" 
+                "action" .action 
+                "aria" .button_text ) 
+            }}
         </div>
         </div>
         {{ end }}

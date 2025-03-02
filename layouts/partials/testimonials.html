@@ -1,33 +1,40 @@
 {{ with .Params.testimonials }}
-<section id="testimonials" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
-  <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
-    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary">{{ .title | default "Testimonial" }}</h2>
-    <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description }}</p>
-  </div>
+<section id="testimonials" class="landing-section">
+  
+  {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Témoignages" "description" .description) }}
 
   <div class="sm:text-center grid grid-cols-1 lg:grid-cols-2 gap-6">
+    {{ if .list }}
     {{ range .list }}
       <figure class="max-w-screen-md mx-auto">
-        <svg class=" h-8 mx-auto mb-3 text-gray-400" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/>
-        </svg>
+        {{ partial "svg/quote.svg" (dict "class" "h-8 mx-auto mb-3 text-gray-400") }}
+
         <blockquote>
           <p class="text-sm sm:text-base text-gray-900">{{ .quote }}</p>
         </blockquote>
+        
         <figcaption class="flex items-center sm:justify-center mt-6 space-x-3">
           {{ if .image }}
-            <img class="size-12 rounded-full" src="{{ .image }}" alt="Photo de {{ .name }}">
+            <img 
+            src="{{ .image }}" 
+            alt="Photo de {{ .name }}"
+            loading="lazy"
+            class="w-12 h-12 rounded-full" >
             {{ else }}
             <div class="flex justify-center items-center w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12">
               {{ partial "svg/user.svg" (dict "class" "w-5 h-5 lg:w-6 lg:h-6") }}
             </div>
             {{ end }}
+            
           <div class="flex items-center divide-x-2 divide-gray-500">
             <div class="pr-3 font-medium text-gray-900">{{ .name }}</div>
             <div class="pl-3 text-sm font-light text-gray-500">{{ .position }}</div>
           </div>
         </figcaption>
       </figure>
+    {{ end }}
+    {{ else }}
+      <div class="col-span-full text-center text-gray-500">Aucun témoignage disponible.</div>
     {{ end }}
   </div>
 </section>

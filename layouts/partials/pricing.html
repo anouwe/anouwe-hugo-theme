@@ -1,68 +1,69 @@
 {{ with .Params.pricing }}
-<section id="pricing" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
-    <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-secondary">{{ .title | default "Nos formules" }}</h2>
-        <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description }}</p>
-    </div>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-{{ len .plans }} gap-6">
-        {{ range .plans }}
-        
-            <div class="flex flex-col relative h-full p-6 bg-white rounded-lg border border-gray-100 shadow">
-            <h3 class="mb-4 text-2xl text-center text-secondary font-semibold">{{ .name }}</h3>
-            {{ if .starred }}
-            <span class="absolute -top-2 right-2 px-2 py-1 text-xs font-medium bg-secondary-50 text-secondary rounded-full">
-                Le plus choisi
-            </span>
-            {{ end }}
-            <p class="font-light text-center text-gray-500 sm:text-lg min-h-[4rem] flex items-top justify-center">{{ .description }}</p>
-            <div class="flex justify-center items-baseline my-4">
-                <span class="text-gray-500">{{ .period }}</span>
-            </div>
-            <ul role="list" class="mb-4 space-y-4 text-left">
-                {{ range .features }}
-                {{ if eq .type "title" }}
-                <li class="flex items-center space-x-3 mb-2">
-                    <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">{{ .text }}</span>
-                </li>
-                {{ else if eq .type "included" }}
-                <li class="flex items-center space-x-3">
-                    <svg class="flex-shrink-0 w-5 h-5 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
-                        </svg>
-                    <span class="text-gray-800">{{ .text }}</span>
-                </li>
-                {{ else if eq .type "not_included" }}
-                <li class="flex items-center space-x-3 text-gray-400">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
-                      </svg>                      
-                    <span>{{ .text }}</span>
-                </li>
-                {{ else if eq .type "optional" }}
-                <li class="flex items-center space-x-3">
-                    <span class="flex-shrink-0 px-2 py-0.5 text-center text-xs font-medium text-secondary bg-secondary-50 rounded-full min-w-14">Option</span>
-                    <span class="text-gray-800">{{ .text }}</span>
-                </li>
-                {{ else if eq .type "not_optional" }}
+<section id="pricing" class="landing-section">
 
-                {{ else if eq .type "line" }}
-                <li class="flex items-center w-full">
-                    <hr class="w-full border- border-gray-100 shadow">
-                </li>
-                {{ end }}
-                {{ end }}
-            </ul>
-            <div class="flex justify-center items-baseline my-4">
-                <span class="text-gray-500">{{ .price }}</span>
-            </div>
+  {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Nos formules" "description" .description) }}
+    
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ len .plans }} gap-6">
+    {{ range .plans }}
+        <div class="flex flex-col relative h-full p-6 bg-white rounded-lg border border-gray-100 shadow">
+        <h3 class="mb-4 text-2xl text-center text-secondary font-semibold">{{ .name }}</h3>
+
+        {{ if .starred }}
+        <span class="absolute -top-2 right-2 px-2 py-1 text-xs font-medium bg-secondary-50 text-secondary rounded-full">
+            Le plus choisi
+        </span>
+        {{ end }}
+
+        <p class="font-light text-center text-gray-500 sm:text-lg min-h-[4rem] flex items-top justify-center">
+            {{ .description }}
+        </p>
+        
+        <div class="flex justify-center items-baseline my-4">
+            <span class="text-gray-500">{{ .period }}</span>
+        </div>
+        
+        <ul role="list" class="mb-4 space-y-4 text-left">
+            {{ range .features }}
+            {{ if eq .type "title" }}
+            <li class="flex items-center space-x-3 mb-2">
+                <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">{{ .text }}</span>
+            </li>
+            {{ else if eq .type "included" }}
+            <li class="flex items-center space-x-3">
+                {{ partial "svg/check-circle.svg" (dict "class" "flex-shrink-0 w-5 h-5 text-primary") }}
+                <span class="text-gray-800">{{ .text }}</span>
+            </li>
+            {{ else if eq .type "not_included" }}
+            <li class="flex items-center space-x-3 text-gray-400">
+                {{ partial "svg/cross-circle.svg" (dict "class" "flex-shrink-0 w-5 h-5 text-gray-400") }}
+                <span>{{ .text }}</span>
+            </li>
+            {{ else if eq .type "optional" }}
+            <li class="flex items-center space-x-3">
+                <span class="flex-shrink-0 px-2 py-0.5 text-center text-xs font-medium text-secondary bg-secondary-50 rounded-full min-w-14">Option</span>
+                <span class="text-gray-800">{{ .text }}</span>
+            </li>
+            {{ else if eq .type "line" }}
+            <li class="flex items-center w-full">
+                <hr class="w-full border- border-gray-100 shadow">
+            </li>
+            {{ end }}
+            {{ end }}
+        </ul>
+
+        <div class="flex justify-center items-baseline my-4">
+            <span class="text-gray-500">{{ .price }}</span>
+        </div>
+
         <div class="flex mt-auto pt-4 justify-center">
-            <a href="{{ .button_url | default "#contact"  }}" 
-            {{ if .action }}@click="$dispatch('set-action', { action: '{{ .action }}' })"{{ end }} 
-            class="text-white bg-[#007B79] hover:bg-opacity-90 focus:ring-4 focus:ring-primary-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center">{{ .button_text | default "Commencer" }}</a>
+            <a href="{{ .button_url | default "#contact" }}" 
+                {{ if .action }}@click="$dispatch('set-action', { action: '{{ .action }}' })"{{ end }} 
+                class="text-white bg-[#007B79] hover:bg-opacity-90 focus:ring-4 focus:ring-primary-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center">
+                {{ .button_text | default "Commencer" }}
+            </a>
         </div>
         </div>
         {{ end }}
-    </div>
+  </div>
 </section>
 {{ end }}

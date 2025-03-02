@@ -4,7 +4,7 @@
     {{ partial "head/analytics.html" . }}
     {{ partial "head/metadata.html" . }}
     {{ partial "head/schemas.html" . }}
-    <title>{{ .Title }} / {{ .Site.Title }}</title>
+    <title>{{ partial "head/title.html" . }}</title>
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/schema.html" . }}
     {{ partial "head/favicons.html" . }}
@@ -33,17 +33,17 @@
 }"
 x-init="window.addEventListener('cookie-preferences-updated', () => cookieBannerVisible = false)"
  {{ end }} class="min-h-screen flex flex-col">
- {{ if .Site.Params.googleAnalytics }}
- <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.googleAnalytics }}"
+  {{ if .Site.Params.googleAnalytics }}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.googleAnalytics }}"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
- {{ end }}
-    {{ partial "site-header" . }}
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 w-full">
-      {{ block "main" . }}{{ end }}
-    </main>
-    {{ partial "site-footer" . }}
-    {{ if .Site.Params.googleAnalytics }}{{ partial "cookie-banner.html" . }}{{ end }}
+  {{ end }}
+  {{ partial "common/site-header" . }}
+  <main class="landing-main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "common/site-footer" . }}
+  {{ if .Site.Params.googleAnalytics }}{{ partial "cookie-banner.html" . }}{{ end }}
 </body>
 </html>

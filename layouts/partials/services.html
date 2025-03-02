@@ -1,36 +1,37 @@
 {{ with .Params.services }}
-<section id="services" class="bg-white px-4 py-8 lg:py-16 max-w-screen-xl next-section">
-  <div class="mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12">
-      <h2>{{ .title | default "Services" }}</h2>
-      <p class="mb-5 font-light text-gray-500 sm:text-xl">{{ .description }}</p>
-    </div>
-
+<section id="services" class="landing-section">
+  
+  {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Services" "description" .description) }}
+  
   <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+    {{ if .list }}
       {{ range .list }}
-      <div class="flex flex-col">
+      <div class="flex flex-col h-full">
           <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12">
-              {{ partial (printf "svg/%s.svg" .icon) (dict "class" "w-5 h-5 lg:w-6 lg:h-6") }}
+              {{ partial (printf "svg/%s.svg" .icon) (dict "class" "text-primary-600 w-5 h-5 lg:w-6 lg:h-6") }}
           </div>
-          <div class="flex flex-col flex-grow">
+
           <h3 class="mb-2 text-lg font-bold">{{ .name }}</h3>
           <p class="text-gray-500">{{ .description }}</p>
+
           {{ with .features }}
           <ul class="mt-4 space-y-3">
           {{ range . }}
           {{ if .name }}
           <li class="flex items-center space-x-3">
-              <svg class="flex-shrink-0 w-5 h-5 text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-500">{{ .name }}</span>
+            {{ partial "svg/check-circle.svg" (dict "class" "flex-shrink-0 w-5 h-5 text-primary") }}
+            <span class="text-gray-500">{{ .name }}</span>
           </li>
           {{ end }}
           {{ end }}
           </ul>
           {{ end }}
-        </div>
+
       </div>
       {{ end }}
+    {{ else }}
+      <div class="col-span-full text-center text-gray-500">Aucun service disponible.</div>
+    {{ end }}
   </div>
 </section>
 {{ end }}

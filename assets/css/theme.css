@@ -48,7 +48,7 @@
 
 @layer base {
     body {
-        font-family: 'Poppins', sans-serif !important;
+        font-family: 'Poppins', sans-serif;
     }
     h1 {
       @apply max-w-2xl mb-4 text-4xl tracking-tight font-extrabold text-secondary;
@@ -61,17 +61,42 @@
     }
 }
 
-@media (max-width: 640px) {
-  #hero {
-      height: calc(100vh - 98px);
-      overflow: visible;
-      position: relative;
+@layer components {
+
+  /* Landing main style */
+  .landing-main {
+    @apply flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 w-full
   }
-  .next-section {
-    flex-grow: 0; /* Chaque section suivante prend juste l'espace qu'elle nécessite */
-    min-height: 0; /* Pas de hauteur minimale fixe, s'ajuste dynamiquement */
-    padding-top: 2rem; /* Pour créer un espacement entre les sections si nécessaire */
-}
+
+  /* Landing section style */
+  .landing-section {
+    @apply bg-white max-w-screen-xl px-4 py-8 lg:py-16 flex-grow-0 min-h-0 mx-auto;
+  }
+  .landing-hero {
+    @apply sm:h-auto 
+          max-sm:min-h-[calc(100vh-98px)]
+          max-sm:overflow-y-auto
+          max-sm:relative
+  }
+  .landing-section__header {
+    @apply mx-auto max-w-screen-md sm:text-center mb-8 lg:mb-12;
+  }
+  .landing-section__title {
+    @apply mb-4 text-4xl tracking-tight font-extrabold text-secondary;
+  }
+  .landing-section__description {
+    @apply mb-5 font-light text-gray-500 sm:text-xl;
+  }
+
+  /* Buttons style */
+  .btn-primary {
+    @apply py-2 px-4 inline-flex justify-center items-center text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90 focus:ring-4 focus:ring-primary-300;
+  }
+  
+  .btn-secondary {
+    @apply py-2 px-4 inline-flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100;
+  }
+
 }
 
 /* AlpineJS */

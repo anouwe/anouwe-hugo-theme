@@ -1,12 +1,9 @@
-<header
-  class="sticky top-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white text-sm py-3"
->
+<header class="sticky top-0 z-50 w-full bg-white text-sm py-3">
   <!-- add  border-b when down -->
-  <div class="max-w-[85rem] w-full mx-auto px-4 md:px-6 lg:px-8">
-    <div class="relative flex items-center justify-between" x-data="{ open: false }">
-      <div class="flex items-center">
+  <div class="max-w-[85rem] mx-auto px-4 md:px-6 lg:px-8 flex justify-between items-center" x-data="{ open: false }">
+
         {{ partial "common/site-header-logo" . }}
-      </div>
+
 
       <div class="flex items-center gap-x-2 lg:order-2">
         {{ with .Site.Params.header.action }}
@@ -34,7 +31,7 @@
         </button>
       </div>
       <nav
-      class="hidden absolute top-full left-0 right-0 bg-white border-b lg:static lg:block lg:border-none mt-3 lg:mt-0 w-full lg:w-auto"
+      class="hidden absolute top-full left-0 right-0 bg-white border-b lg:static lg:block lg:border-none lg:mt-0 w-full lg:w-auto"
       :class="{ 'hidden': !open }"
       >
       <ul

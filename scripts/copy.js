@@ -1,3 +1,4 @@
+import fs from "fs";
 
 // Retrieve CLI arguments manually
 const args = process.argv.slice(2);

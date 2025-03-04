@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 <head>
-    {{ partial "head/analytics.html" . }}
+    <!-- Meta Tags -->
     {{ partial "head/metadata.html" . }}
     {{ partial "head/schemas.html" . }}
-    <title>{{ partial "head/title.html" . }}</title>
+    <!-- Open Graph / SEO -->
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/schema.html" . }}
+    <!-- Favicons -->
     {{ partial "head/favicons.html" . }}
+    <!-- Font Preloading -->
     {{ partial "head/fonts.html" . }}
-    {{ partial "head/css-variables.html" . }}    
+    <!-- Title -->
+    <title>{{ partial "head/title.html" . }}</title>
+    {{ with .OutputFormats.Get "rss" -}}
+      {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
     {{ $main := resources.Get "css/main.css" }}
     {{ $css := slice $main | resources.Concat "css/bundle.css" | css.PostCSS }}
     {{ if hugo.IsProduction }}
       {{ $css = $css | minify | fingerprint | resources.PostProcess }}
     {{ end }}
-    {{ with .OutputFormats.Get "rss" -}}
-      {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
-    {{ end }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.RelPermalink | absURL | sha256 }}" crossorigin="anonymous">
     {{ $js := resources.Get "js/main.js" }}
-    <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+    <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.RelPermalink | absURL | sha256 }}" crossorigin="anonymous"></script>
+    <!-- Google Analytics / Tag Manager Scripts (Defer) -->
+    {{ partial "head/analytics.html" . }}
 </head>
 <body {{ if .Site.Params.googleAnalytics }} x-data="{ 
   cookieBannerVisible: (() => {

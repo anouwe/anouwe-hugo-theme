@@ -46,12 +46,6 @@ module.exports = {
       fontFamily: {
         'body': ['var(--primary-font)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
         'sans': ['var(--primary-font)', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif']
-      },
-      borderRadius: {
-        'DEFAULT': 'var(--border-radius)',
-      },
-      spacing: {
-        'heading': 'var(--heading-spacing)',
       }
     }
   },

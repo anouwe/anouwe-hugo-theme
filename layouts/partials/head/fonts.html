@@ -1,52 +1,14 @@
 <!-- Conditional loading of fonts based on configuration -->
-{{ if eq .Site.Data.theme.primaryFont "Poppins" }}
-  <link rel="preload" href="{{ "fonts/poppins/poppins-light-webfont.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ "fonts/poppins/poppins-regular-webfont.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ "fonts/poppins/poppins-medium-webfont.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ "fonts/poppins/poppins-semibold-webfont.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ "fonts/poppins/poppins-bold-webfont.woff2" | absURL }}" as="font" type="font/woff2" crossorigin>
-  
-  <style>
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ "fonts/poppins/poppins-light-webfont.woff2" | absURL }}') format('woff2');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ "fonts/poppins/poppins-regular-webfont.woff2" | absURL }}') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ "fonts/poppins/poppins-medium-webfont.woff2" | absURL }}') format('woff2');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ "fonts/poppins/poppins-semibold-webfont.woff2" | absURL }}') format('woff2');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ "fonts/poppins/poppins-bold-webfont.woff2" | absURL }}') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-  </style>
-{{ else if eq .Site.Data.theme.primaryFont "Roboto" }}
+{{ if eq .Site.Data.theme.primaryFont.name "Poppins" }}
+  {{ range .Site.Data.theme.primaryFont.preload }}
+    {{ $weight := . }}
+    <!-- Preloading Poppins font files for specified weights -->
+    <link rel="preload" href="{{ printf "fonts/poppins/poppins-%d-webfont.woff2" $weight | relURL }}" as="font" type="font/woff2" crossorigin>
+  {{ end }}
+{{ else if eq .Site.Data.theme.primaryFont.name "Roboto" }}
   <!-- Loading Roboto via Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-{{ else if eq .Site.Data.theme.primaryFont "Inter" }}
+{{ else if eq .Site.Data.theme.primaryFont.name "Inter" }}
   <!-- Loading Inter via Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 {{ else }}

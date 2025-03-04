@@ -74,7 +74,7 @@ The theme uses an automatic CSS variables and theme.json file generation system.
   "scripts": {
     "dev": "hugo server",
     "build": "hugo --minify",
-    "prebuild:theme": "node themes/anouwe/scripts/generateThemeVariables.mjs"
+    "prebuild:theme": "node themes/anouwe/scripts/generateTheme.mjs"
   },
   "dependencies": {
     "flowbite": "^1.6.5"
@@ -96,7 +96,7 @@ The theme uses an automatic CSS variables and theme.json file generation system.
 You can then generate the theme.json file by running:
 
 ```bash
-npm run generate-theme
+pnpm run prebuild:theme
 ```
 
 ### Custom Configuration
@@ -104,13 +104,27 @@ npm run generate-theme
 You can customize the theme's appearance by adding these parameters to your `config.toml` file:
 
 ```toml
-[params.theme]
-  # Main colors
-  primaryColor = "#007B79"   # Primary color (default: #007B79)
-  secondaryColor = "#113946" # Secondary color (default: #113946)
-  
-  # Typography
-  primaryFont = "Poppins"    # Primary font (options: "Poppins", "Roboto", "Inter")
+  [params.theme]
+    # Main color
+    primaryColor = "#007B79"   # Primary color (default: #007B79)
+    secondaryColor = "#113946" # Secondary color (default: #113946)
+    # Typo
+    [params.theme.primaryFont]
+      name = "Poppins" # Primary font (options: "Poppins", "Roboto", "Inter")
+      weight = [300, 400, 500, 600, 700]
+      preload = [300, 600, 700]
+    # Color charts
+    [params.theme.lightChart]
+      50 = 0.93
+      100 = 0.84
+      200 = 0.68
+      300 = 0.45
+      400 = 0.23
+    [params.theme.darkChart]
+      600 = 0.22
+      700 = 0.41
+      800 = 0.60
+      900 = 0.79
 ```
 
 ## Homepage Configuration

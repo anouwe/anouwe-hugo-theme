@@ -39,6 +39,7 @@
       },
   
       async submitForm(event) {
+        event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
         
@@ -49,19 +50,18 @@
             body: new URLSearchParams(formData).toString()
           });
           
-          if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
+          if (response.ok) {
+            this.success = true;
+            this.message = 'Message envoyé avec succès.';
+            this.showToast = true;
+            form.reset();
+            
+            setTimeout(() => {
+              this.showToast = false;
+            }, 3000);
+          } else {
+            throw new Error('Échec de l\'envoi du formulaire');
           }
-          
-          this.success = true;
-          this.message = 'Message envoyé avec succès.';
-          this.showToast = true;
-          
-          setTimeout(() => {
-            this.showToast = false;
-          }, 3000);
-          
-          form.reset();
         } catch (error) {
           console.error('Erreur:', error);
           this.success = false;
@@ -114,7 +114,7 @@
         <option value="{{ .value }}">{{ .name }}</option>
         {{ end }}
       </select>
-      <input x-cloak type="text" id="reason" name="reason" autocomplete="off" x-show="action === 'autre'" x-model="reason" placeholder="Précisez votre demande" class="bg-gray-50 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+      <input x-cloak type="text" id="reason" name="reason" autocomplete="off" x-show="action === 'autre'" placeholder="Précisez votre demande" class="bg-gray-50 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
     </div>
     <div class="mb-5 sm:mb-8">
       <label for="message" class="block mb-2">Message</label>

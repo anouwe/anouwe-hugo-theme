@@ -36,6 +36,8 @@
     class="max-w mx-auto p-2 sm:p-4"
     method="post"
     netlify
+    @submit.prevent="submitForm($event)"
+    x-data="contactForm"
   >
     <div class="mb-5 sm:mb-8">
       <label for="name" class="block mb-2">Nom</label>

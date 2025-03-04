@@ -3,7 +3,7 @@
   {{ range .Site.Params.theme.primaryFont.preload }}
     {{ $weight := . }}
     <!-- Preloading Poppins font files for specified weights -->
-    <link rel="preload" href="{{ printf "fonts/poppins/poppins-%d-webfont.woff2" $weight | relURL }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ printf "fonts/poppins-%d-webfont.woff2" $weight | relURL }}" as="font" type="font/woff2" crossorigin>
   {{ end }}
 {{ else if eq .Site.Params.theme.primaryFont.name "Roboto" }}
   <!-- Loading Roboto via Google Fonts -->

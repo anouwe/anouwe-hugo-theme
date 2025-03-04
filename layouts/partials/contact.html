@@ -3,19 +3,19 @@
   x-data="{
     action: '',
     focusObject() {
-      // Attendre que le DOM soit prêt et que la valeur soit assignée
+      // Wait for the DOM to be ready and the value to be assigned
       $nextTick(() => {
         $refs.object.focus();
-        // Forcer la mise à jour de la valeur du select après le focus
+        // Force the select value update after focus
         if (this.action) {
           $refs.object.value = this.action;
-          // Déclencher l'événement change pour mettre à jour x-model
+          // Trigger change event to update x-model
           $refs.object.dispatchEvent(new Event('change'));
         }
       })
     },
     init() {
-      // Récupérer le paramètre d'URL au chargement
+      // Get URL parameter on load
       const urlParams = new URLSearchParams(window.location.search);
       const actionParam = urlParams.get('action');
       if (actionParam) {
@@ -24,7 +24,7 @@
       }
     }
   }"
-  @set-action.window="action = $event.detail.action; focusObject()">
+  @set-action.window="this.action = $event.detail.action; this.focusObject()">
 </section>
 
   
@@ -125,5 +125,51 @@
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"/>
     </svg>
     <div id="contactFormToastMessage" class="ps-4 text-sm font-normal whitespace-nowrap">Message envoyé avec succès.</div>
+  </div>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('contactForm', () => ({
+        showToast: false,
+        success: false,
+        message: '',
+        
+        async submitForm(event) {
+          const form = event.target;
+          const formData = new FormData(form);
+          
+          try {
+            const response = await fetch("/", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams(formData).toString()
+            });
+            
+            if (!response.ok) {
+              throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            
+            this.success = true;
+            this.message = "Message envoyé avec succès.";
+            this.showToast = true;
+            
+            setTimeout(() => {
+              this.showToast = false;
+            }, 3000);
+            
+            form.reset();
+          } catch (error) {
+            console.log("Erreur capturée :", error);
+            this.success = false;
+            this.message = "Échec de l'envoi du message. Veuillez réessayer.";
+            this.showToast = true;
+            
+            setTimeout(() => {
+              this.showToast = false;
+            }, 3000);
+          }
+        }
+      }));
+    });
+  </script>
 </section>
 {{ end }}

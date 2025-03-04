@@ -1,6 +1,32 @@
 {{ with .Params.contact }}
-<section id="contact" class="landing-section" x-data="{ action: '', focusObject() { $nextTick(() => $refs.object.focus()) } }" 
+<section id="contact" class="landing-section"
+  x-data="{
+    action: '',
+    focusObject() {
+      // Attendre que le DOM soit prêt et que la valeur soit assignée
+      $nextTick(() => {
+        $refs.object.focus();
+        // Forcer la mise à jour de la valeur du select après le focus
+        if (this.action) {
+          $refs.object.value = this.action;
+          // Déclencher l'événement change pour mettre à jour x-model
+          $refs.object.dispatchEvent(new Event('change'));
+        }
+      })
+    },
+    init() {
+      // Récupérer le paramètre d'URL au chargement
+      const urlParams = new URLSearchParams(window.location.search);
+      const actionParam = urlParams.get('action');
+      if (actionParam) {
+        this.action = actionParam;
+        this.focusObject();
+      }
+    }
+  }"
   @set-action.window="action = $event.detail.action; focusObject()">
+</section>
+
   
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Contact" "description" .description) }}
   

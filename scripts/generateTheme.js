@@ -114,7 +114,7 @@ if (!fs.existsSync(outputDir)) {
 }
 
 // Generate `variables.css`
-// Liste des polices système qui n'ont pas besoin d'importation
+// System fonts to exclude from font-face generation
 const systemFonts = ["Arial", "Helvetica", "Times New Roman", "Georgia", "Courier New", "sans-serif", "serif", "monospace"];
 
 const primaryFont = themeVariables.primaryFont;
@@ -148,12 +148,27 @@ let fontsCss = "";
 if (needsFontFace) {
   const fontName = themeVariables.primaryFont.name;
   const fontWeights = themeVariables.primaryFont.weight || [];
-
+  
+  // Mapping des poids de police vers leurs noms descriptifs
+  const weightToName = {
+    100: "Thin",
+    200: "ExtraLight",
+    300: "Light",
+    400: "Regular",
+    500: "Medium",
+    600: "SemiBold",
+    700: "Bold",
+    800: "ExtraBold",
+    900: "Black"
+  };
+  
   fontWeights.forEach((weight) => {
-    fontsCss += `
-  @font-face {
+    const weightName = weightToName[weight] || "Regular";
+    
+    fontsCss += `  @font-face {
     font-family: '${fontName}';
-    src: url('/fonts/${fontName.toLowerCase()}/${fontName.toLowerCase()}-${weight}-webfont.woff2') format('woff2');
+    src: local('${fontName} ${weightName}'), local('${fontName}-${weightName}'),
+         url('/fonts/${fontName.toLowerCase()}-${weight}-webfont.woff2') format('woff2');
     font-weight: ${weight};
     font-style: normal;
     font-display: swap;

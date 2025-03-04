@@ -9,21 +9,39 @@
     {{ template "_internal/schema.html" . }}
     <!-- Favicons -->
     {{ partial "head/favicons.html" . }}
-    <!-- Font Preloading -->
-    {{ partial "head/fonts.html" . }}
+    <!-- Preloading -->
+    {{ partial "head/preloading.html" . }}
     <!-- Title -->
     <title>{{ partial "head/title.html" . }}</title>
     {{ with .OutputFormats.Get "rss" -}}
       {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
     {{ end }}
+
     {{ $main := resources.Get "css/main.css" }}
     {{ $css := slice $main | resources.Concat "css/bundle.css" | css.PostCSS }}
     {{ if hugo.IsProduction }}
       {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+      <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+    {{ else }}
+      <link rel="stylesheet" href="{{ $css.RelPermalink }}">
     {{ end }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.RelPermalink | absURL | sha256 }}" crossorigin="anonymous">
-    {{ $js := resources.Get "js/main.js" }}
-    <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.RelPermalink | absURL | sha256 }}" crossorigin="anonymous"></script>
+
+    {{ with resources.Get "js/main.js" }}
+      {{ $opts := dict
+        "minify" hugo.IsProduction
+        "sourceMap" (cond hugo.IsProduction "" "external")
+        "targetPath" "js/main.js"
+      }}
+      {{ with . | js.Build $opts }}
+        {{ if hugo.IsProduction }}
+          {{ with . | fingerprint }}
+            <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+          {{ end }}
+        {{ else }}
+          <script src="{{ .RelPermalink }}"></script>
+        {{ end }}
+      {{ end }}
+    {{ end }}
     <!-- Google Analytics / Tag Manager Scripts (Defer) -->
     {{ partial "head/analytics.html" . }}
 </head>

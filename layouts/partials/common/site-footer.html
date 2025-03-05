@@ -54,14 +54,11 @@
           </div>
         {{ end }}
         {{ if .Site.Params.footer.ecoindex.active }}
-        <div class="flex justify-center sm:-mt-2 h-8">
-          <div id="ecoindex-badge" data-theme="dark"></div>
-        </div>
+        <a href="https://bff.ecoindex.fr/redirect/?url={{ .Site.BaseURL}}" target="_blank" rel="noopener noreferrer" class="text-sm">
+          <img src="https://bff.ecoindex.fr/badge/?theme=dark&url={{ .Site.BaseURL}}" alt="Ecoindex Badge" />
+        </a>
         {{ end }}
       </div>
     </div>
   </div>
 </footer>
-{{ if .Site.Params.footer.ecoindex.active }}
-<script src="https://cdn.jsdelivr.net/gh/cnumr/ecoindex_badge@3/assets/js/ecoindex-badge.js" defer></script>
-{{ end}}

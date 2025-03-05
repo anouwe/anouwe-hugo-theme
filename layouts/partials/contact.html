@@ -160,13 +160,32 @@
         Envoyer
       </button>
     </div>
-  </form>
-  </div>
-  <div id="contactFormToast" class="hidden fixed z-50 bottom-10 right-1/2 translate-x-1/2 inline-flex items-center max-w-max p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-sm opacity-0 transition-opacity duration-500" role="alert">
-    <svg id = "contactFormToastIcon" class="w-5 h-5 text-primary rotate-45 origin-center" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+    <div 
+    x-cloak
+    x-show="showToast"
+    x-transition:enter="transition-opacity duration-500"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition-opacity duration-500"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed z-50 bottom-10 right-1/2 translate-x-1/2 inline-flex items-center max-w-max p-4 space-x-4 text-gray-800 bg-gray-100 divide-x divide-gray-400 rounded-lg shadow-sm"
+    role="alert"
+  >
+    <svg 
+      :class="success ? 'text-primary' : 'text-red-500'"
+      class="w-5 h-5 rotate-45 origin-center" 
+      aria-hidden="true" 
+      xmlns="http://www.w3.org/2000/svg" 
+      fill="none" 
+      viewBox="0 0 20 20"
+    >
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"/>
     </svg>
-    <div id="contactFormToastMessage" class="ps-4 text-sm font-normal whitespace-nowrap">Message envoyé avec succès.</div>
+    <div class="ps-4 text-sm font-normal whitespace-nowrap" x-text="message"></div>
   </div>
+  </form>
+  </div>
+
 </section>
 {{ end }}

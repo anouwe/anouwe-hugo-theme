@@ -1,23 +1,22 @@
 {{ with .Site.Params.cookies }}
 {{ if .active }}
-<div x-data="{ 
-    show: (() => {
-        const stored = JSON.parse(localStorage.getItem('cookies-settings') || '{}');
-        if (stored.expiryDate && new Date(stored.expiryDate) < new Date()) {
-            localStorage.removeItem('cookies-settings');
-            localStorage.removeItem('cookies-banner');
-            return true;
-        }
-        return !localStorage.getItem('cookies-banner');
-    })(),
-    showDetails: false
+<div x-data="{
+  show: (() => {
+      const stored = JSON.parse(localStorage.getItem('cookies-settings') || '{}');
+      if (stored.expiryDate && new Date(stored.expiryDate) < new Date()) {
+          localStorage.removeItem('cookies-settings');
+          return true;
+      }
+      return !localStorage.getItem('cookies-settings');
+  })(),
+  showDetails: false
 }" 
 x-init="(() => {
-    window.addEventListener('cookie-preferences-updated', () => show = false);
-    window.addEventListener('cookie-show-details', () => {
-        show = true;
-        showDetails = true;
-    });
+  window.addEventListener('cookie-preferences-updated', () => show = false);
+  window.addEventListener('cookie-show-details', () => {
+      show = true;
+      showDetails = true;
+  });
 })()"
 x-show="show"
 x-cloak
@@ -86,13 +85,23 @@ class="fixed bottom-0 start-0 z-50 flex flex-col w-full translate-y-0 opacity-10
             </p>
         </div>
         <div class="flex items-center gap-2">
-            <button @click="$store.cookiePreferences.rejectAll()" class="py-1 px-2 sm:h-auto inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-gray-200 text-secondary hover:bg-gray-300">
+            <button @click="$store.cookiePreferences.consent({
+              {{ if .analyticsStorage }}analytics_storage: false,{{ end }}
+              {{ if .adStorage }}ad_storage: false,{{ end }}
+              {{ if .adPersonalization }}ad_personalization: false,{{ end }}
+              {{ if .adUserData }}ad_user_data: false,{{ end }}
+            })" class="py-1 px-2 sm:h-auto inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-gray-200 text-secondary hover:bg-gray-300">
                 Tout refuser
             </button>
             <button @click="showDetails = !showDetails" class="py-1 px-2 sm:h-auto inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-gray-200 text-secondary hover:bg-gray-300">
                 Personnaliser
             </button>
-            <button @click="$store.cookiePreferences.acceptAll()" class="py-1 px-2 sm:h-auto inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90">
+            <button @click="$store.cookiePreferences.consent({
+              {{ if .analyticsStorage }}analytics_storage: true,{{ end }}
+              {{ if .adStorage }}ad_storage: true,{{ end }}
+              {{ if .adPersonalization }}ad_personalization: true,{{ end }}
+              {{ if .adUserData }}ad_user_data: true,{{ end }}
+            })" class="py-1 px-2 sm:h-auto inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-opacity-90">
                 Tout accepter
             </button>
         </div>

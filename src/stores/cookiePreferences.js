@@ -10,7 +10,7 @@ document.addEventListener('alpine:init', () => {
         this.setDefaultPreferences();
       } else if (stored.preferences) {
         this.preferences = stored.preferences;
-        this.pushToDataLayer();
+        this.pushToDataLayer(true);
       } else {
         this.setDefaultPreferences();
       }
@@ -27,10 +27,10 @@ document.addEventListener('alpine:init', () => {
       this.pushToDataLayer();
     },
 
-    pushToDataLayer() {
+    pushToDataLayer(isInit = false) {
       if (window.dataLayer) {
         window.dataLayer.push({
-          event: 'consent_update',
+          event: isInit ? 'consent_init' : 'consent_update',
           analytics_storage: this.preferences.analytics_storage ? 'granted' : 'denied',
           ad_storage: this.preferences.ad_storage ? 'granted' : 'denied',
           ad_personalization: this.preferences.ad_personalization ? 'granted' : 'denied',

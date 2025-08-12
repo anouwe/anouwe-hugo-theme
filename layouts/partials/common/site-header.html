@@ -1,4 +1,9 @@
 <header class="sticky top-0 z-50 w-full bg-white text-sm py-3">
+
+  {{ with .Site.Params.header.topBanner }}{{ if .active }}
+    {{ partial "top-banner.html" . }}
+  {{ end }}{{ end }}
+  
   <!-- add  border-b when down -->
   <div class="max-w-[85rem] mx-auto px-4 md:px-6 lg:px-8 flex justify-between items-center" x-data="{ open: false }">
 

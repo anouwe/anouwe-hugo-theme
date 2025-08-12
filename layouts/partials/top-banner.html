@@ -1,0 +1,31 @@
+
+<div x-data="{
+    show: (() => {
+        const stored = localStorage.getItem('top-banner-dismissed-{{ .ctaLink | urlize }}');
+        return stored !== 'true';
+    })()
+}"
+x-show="show" x-cloak
+class="flex w-full bg-primary border-b border-gray-200">
+    <div class="flex flex-col sm:flex-row justify-between items-center w-full p-2 gap-4 sm:gap-0">
+        <div class="flex items-center">
+            <span class="inline-flex p-1 me-3 bg-white bg-opacity-20 rounded-full w-6 h-6 items-center justify-center">
+                {{ partial (printf "svg/%s.svg" .icon) (dict "class" "text-white w-4 h-4") }}
+            </span>
+            <p class="text-xs sm:text-sm text-white">
+                {{ with .text }}{{ . | safeHTML }}{{ end }} 
+            <a href="{{ .ctaLink | relURL }}"
+               class="ms-3 sm:ms-4 py-1 px-3 whitespace-nowrap align-middle inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-white border-opacity-30 bg-white bg-opacity-10 text-white hover:bg-opacity-20 transition-all">
+                {{ .ctaText }} →
+            </a>
+            </p>
+        </div>
+
+        <div class="flex gap-2 items-center">
+            <button @click="localStorage.setItem('top-banner-dismissed-{{ .ctaLink | urlize }}', 'true'); show = false"
+                    class="py-1 px-2 inline-flex items-center justify-center text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-all">
+                {{ partial "svg/cross.svg" (dict "class" "text-white w-4 h-4") }}
+            </button>
+        </div>
+    </div>
+</div>

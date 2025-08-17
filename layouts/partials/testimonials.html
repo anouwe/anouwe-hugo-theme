@@ -3,10 +3,13 @@
   
   {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Témoignages" "description" .description) }}
 
-  <div class="landing-section__content lg:grid-cols-2">
-    {{ if .list }}
-    {{ range .list }}
-      <figure class="max-w-screen-md mx-auto">
+  {{ $list := .list }}
+  {{ $isSingle := and $list (eq (len $list) 1) }}
+
+  <div class="landing-section__content grid gap-8 {{ if not $isSingle }}lg:grid-cols-2{{ end }}">
+    {{ if $list }}
+    {{ range $list }}
+      <figure class="{{ if $isSingle }}w-full{{ else }}max-w-screen-md mx-auto{{ end }}">
         {{ partial "svg/quote.svg" (dict "class" "h-8 mx-auto mb-3 text-gray-400") }}
 
         <blockquote>

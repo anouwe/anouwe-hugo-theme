@@ -19,7 +19,7 @@
           {{ if .name }}
           <li class="flex items-center space-x-3">
             {{ partial "svg/check-circle.svg" (dict "class" "flex-shrink-0 w-5 h-5 text-primary") }}
-            <span class="text-gray-500">{{ .name }}</span>
+            <span class="text-gray-500">{{ .name | safeHTML }}</span>
           </li>
           {{ end }}
           {{ end }}

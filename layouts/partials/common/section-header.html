@@ -1,4 +1,4 @@
 <div class="landing-section__header">
-  <h2 class="landing-section__title">{{ .title }}</h2>
-  <p class="landing-section__description">{{ .description }}</p>
+  <h2 class="landing-section__title">{{ .title | safeHTML }}</h2>
+  <p class="landing-section__description">{{ .description | safeHTML }}</p>
 </div>

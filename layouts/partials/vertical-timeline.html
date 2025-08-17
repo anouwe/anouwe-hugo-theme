@@ -1,0 +1,20 @@
+{{ with .Params.vertical_timeline }}
+<section id="vertical_timeline" class="landing-section justify-center">
+
+  {{ partial "common/section-header.html" (dict "title" .title "defaultTitle" "Vertical timeline" "description" .description) }}
+
+  <ol class="relative border-s border-gray-200 dark:border-gray-700 mx-auto w-full max-w-2xl">
+    {{ if .list }}
+      {{ range .list }}
+        <li class="mb-10 ms-6">            
+          <span class="absolute flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full -start-3 ring-8 ring-white">
+                {{ partial (printf "svg/%s.svg" .icon) (dict "class" "text-primary-600 w-4 h-4") }}
+            </span>
+            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ .name }}</h3>
+            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{{ .description }}</p>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ol>
+</section>
+{{ end }}
